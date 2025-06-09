@@ -6,9 +6,8 @@ Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript**
 
 - **Lógica completa del juego**: colisiones, rotaciones, detección de líneas y generación aleatoria de piezas (tetriminos).
 - **Animaciones suaves y efectos visuales**: incluye sombras y espectros de caída.
-- **Sistema de puntuación**: basado en líneas completadas.
 - **Arquitectura modular**: clases separadas como `Tetrimino` y `Tablero`, lo que facilita el mantenimiento y la escalabilidad.
-- **Estética personalizable**: se puede modificar fácilmente con CSS.
+- **Sistema de puntuación**: basado en líneas completadas.
 - **Listo para ampliar**: preparado para agregar niveles, sonidos, rankings y más.
 
 ### Este proyecto fue una práctica intensiva en

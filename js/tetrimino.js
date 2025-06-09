@@ -1,3 +1,22 @@
+/*
+Este archivo define la clase Tetrimino, que representa cada pieza que cae.
+
+Resumen:
+
+- Se crea una pieza aleatoria entre las clásicas (Z, S, J, L, T, O, I).
+
+- Tiene métodos para moverse (derecha, izquierda, abajo, arriba).
+
+- Detecta si el movimiento es válido o si colisiona con el tablero o piezas ya fijas.
+
+- Implementa la rotación (girar y desgirar).
+
+- Tiene una función para dibujar la pieza en el canvas.
+
+- También dibuja una "sombra" o espectro que muestra dónde caería la pieza si la soltamos.
+
+*/
+
 class Tetrimino {
     constructor(nombre = random(["Z", "S", "J", "L", "T", "O", "I"])) {
         this.nombre = nombre;
