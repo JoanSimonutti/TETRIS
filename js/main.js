@@ -6,6 +6,7 @@ let regulador_velocidad_teclas = 0;
 let regulador_de_caida = 0;
 let límite_regulador_velocidad_teclas = 100;
 let lineas_hechas = 0;
+let puntaje = 0;
 
 let tablero;
 let tetrimino;
@@ -27,7 +28,7 @@ function setup() {
     );
 
     setInterval(() => {
-        if (juegoPausado) return;  // Si está pausado, no avanza la pieza
+        if (juegoPausado) return;
         if (millis() - regulador_de_caida < 300) return;
         regulador_de_caida = millis();
         tetrimino.moverAbajo();
@@ -38,21 +39,19 @@ function draw() {
     clear();
 
     if (juegoPausado) {
-        // Dibuja el tablero y la última pieza para que no se quede en blanco
         tablero.dibujar();
         tetrimino.dibujar();
 
-        // Dibuja el texto de "PAUSA"
         push();
         textAlign(CENTER, CENTER);
-        textSize(48);
+        textSize(55);
         fill('rgba(255, 0, 0, 0.7)');
         stroke('white');
         strokeWeight(4);
         text('P A U S A', width / 2, height / 2);
         pop();
 
-        return;  // No ejecutar nada más mientras está pausado
+        return;
     }
 
     dibujarPuntaje();
@@ -70,13 +69,14 @@ function dibujarPuntaje() {
     strokeWeight(2);
     stroke("black");
     fill("white");
-    text(
-        `Líneas: ${lineas_hechas}`,
-        tablero.posición.x,
-        tablero.posición.y - tablero.lado_celda / 2
-    );
+
+    const x = tablero.posición.x;
+    const y = tablero.posición.y + tablero.alto + tablero.lado_celda / 2;
+
+    text(`Líneas: ${lineas_hechas}    Puntaje: ${puntaje}`, x, y);
     pop();
 }
+
 
 function keyEventsTetris() {
     if (millis() - regulador_velocidad_teclas < límite_regulador_velocidad_teclas) return;
