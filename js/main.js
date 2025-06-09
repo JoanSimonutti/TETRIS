@@ -1,73 +1,59 @@
+/* 
+Explicación principal:
+
+- setup() inicializa variables y canvas.
+
+- draw() es el loop que se repite para actualizar la pantalla.
+
+- Se regula la velocidad con los tiempos (regulador_de_caida y regulador_velocidad_teclas) para que las piezas no se muevan demasiado rápido o lento.
+
+- El teclado mueve la pieza (flechas para moverse o girar, espacio para poner la pieza en el fondo).
+
+*/
+
 const MARGEN_TABLERO = 10;
 let regulador_velocidad_teclas = 0;
 let regulador_de_caida = 0;
 let lineas_hechas = 0;
 
-/* Generación de fondo dinámico: (LO TENGO COMENTADO PORQUE LE DI UN BACKGROUND COLOR DESDE CSS AL BODY)
- 
-let angulo_fondo = Math.random() * 360;
-let tono_fondo = Math.random() * 360;
-setInterval(() => {
-  document.body.style.background = `linear-gradient(
-          ${angulo_fondo}deg, 
-          hsl(${tono_fondo},100%,50%),
-          hsl(${tono_fondo},100%,0%)
-      )`;
-  angulo_fondo += Math.random();
-  tono_fondo += Math.random();
-}, 20);
-*/
-
 /* 
-  Dificultad, hacer caer las piezas cada determinada cantidad de tiempo,
-  simulando una especie de gravedad, esto se hace fácilmente con un setInterval
-  */
+  setInterval para que las piezas bajen cada cierto tiempo (gravedad simulada)
+  millis() es función de p5 que devuelve ms desde que inició el programa
+*/
 setInterval(() => {
-    if (millis() - regulador_de_caida < 300) {
-        return;
-    }
+    if (millis() - regulador_de_caida < 300) return; // no cae si no pasaron 300ms
     regulador_de_caida = millis();
     tetrimino.moverAbajo();
 }, 500);
 
-/* 
-  La función setup es nativa de p5.js
-
-  y sirve para ajustar las propiedades iniciales de nuestros objetos 
-  y variables
-  */
+/* setup() se ejecuta una vez al iniciar */
 function setup() {
-    createCanvas(900, 600); //crea un canvas
-    /* 
-        VARIABLES GLOBALES
+    createCanvas(900, 600); // crea el canvas (área de dibujo)
 
-        es importante que no le pongan let, ni var, ni const a las siguientes 
-        variables. Para que puedan ser identificadas como globales
-        */
+    // Variables globales SIN let/var/const para que sean accesibles en todo el código
     tablero = new Tablero();
-    crearMapeoBaseTetriminos();
+    crearMapeoBaseTetriminos();  // función externa para definir tipos de piezas
     tetrimino = new Tetrimino();
+
+    // Ajusta tamaño del canvas según tamaño real del tablero y márgenes
     resizeCanvas(
         tablero.ancho + 2 * MARGEN_TABLERO,
         tablero.alto + 2 * MARGEN_TABLERO + 2 * tablero.lado_celda
     );
 }
 
-/* 
-  La función draw es nativa de p5.js
-
-  y sirve para dar instrucciones precisas de dibujo sobre el canvas
-  */
+/* draw() se ejecuta repetidamente (aprox 60 FPS) */
 function draw() {
-    clear();
-    dibuajarPuntaje();
-    tablero.dibujar();
-    tetrimino.dibujar();
-    keyEventsTetris();
+    clear();             // limpia el canvas para redibujar
+    dibuajarPuntaje();   // dibuja líneas hechas
+    tablero.dibujar();   // dibuja el tablero y piezas almacenadas
+    tetrimino.dibujar(); // dibuja la pieza que cae
+    keyEventsTetris();   // chequea y ejecuta eventos del teclado
 }
 
+/* Función para dibujar texto de puntaje (líneas) */
 function dibuajarPuntaje() {
-    push();
+    push(); // guarda estilos actuales
     textSize(20);
     strokeWeight(2);
     stroke("black");
@@ -77,16 +63,14 @@ function dibuajarPuntaje() {
         tablero.posición.x,
         tablero.posición.y - tablero.lado_celda / 2
     );
-    pop();
+    pop(); // restaura estilos anteriores
 }
 
 let límite_regulador_velocidad_teclas = 100;
 
+/* Detecta teclas presionadas para mover la pieza */
 function keyEventsTetris() {
-    if (
-        millis() - regulador_velocidad_teclas <
-        límite_regulador_velocidad_teclas
-    ) {
+    if (millis() - regulador_velocidad_teclas < límite_regulador_velocidad_teclas) {
         return;
     }
     límite_regulador_velocidad_teclas = 100;
@@ -109,7 +93,7 @@ function keyEventsTetris() {
         tetrimino.girar();
         regulador_de_caida = millis();
     }
-    if (keyIsDown(32)) {
+    if (keyIsDown(32)) { // tecla espacio
         límite_regulador_velocidad_teclas = 200;
         tetrimino.ponerEnElFondo();
         regulador_de_caida = millis();

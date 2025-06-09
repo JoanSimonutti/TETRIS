@@ -1,7 +1,23 @@
 /* 
+Este archivo define la clase Tablero, que representa el tablero del Tetris y almacena las piezas fijas.
+
+Resumen:
+
+- Tiene dimensiones de 10 columnas x 20 filas.
+
+- Usa un array bidimensional minosAlmacenados para guardar las posiciones ya ocupadas por piezas caídas.
+
+- Dibuja el tablero con un patrón de colores y los bloques almacenados.
+
+- Tiene funciones para detectar y borrar líneas completas.
+
+- Tiene métodos para convertir coordenadas del tablero a posiciones en el canvas de dibujo.
+
 Se va a encargar de representar el modelo del tablero de juego, su nombre 
-empieza por una T mayúscula para identificar que es una clase y no una variable
+empieza por una T mayúscula para identificar que es una clase y no una variable.
+
 */
+
 class Tablero {
     constructor() {
         this.columnas = 10;
