@@ -1,137 +1,67 @@
-/* 
-Este archivo define la clase Tablero, que representa el tablero del Tetris y almacena las piezas fijas.
-
-Resumen:
-
-- Tiene dimensiones de 10 columnas x 20 filas.
-
-- Usa un array bidimensional minosAlmacenados para guardar las posiciones ya ocupadas por piezas caídas.
-
-- Dibuja el tablero con un patrón de colores y los bloques almacenados.
-
-- Tiene funciones para detectar y borrar líneas completas.
-
-- Tiene métodos para convertir coordenadas del tablero a posiciones en el canvas de dibujo.
-
-Se va a encargar de representar el modelo del tablero de juego, su nombre 
-empieza por una T mayúscula para identificar que es una clase y no una variable.
-
-*/
-
+// ==========================
+// IMPORTACIÓN DE CLASES
+// ==========================
 class Tablero {
     constructor() {
         this.columnas = 10;
         this.filas = 20;
-        this.lado_celda = 25;
+        this.lado_celda = 30;
         this.ancho = this.columnas * this.lado_celda;
         this.alto = this.filas * this.lado_celda;
-        this.posición = createVector(
-            MARGEN_TABLERO,
-            MARGEN_TABLERO + 2 * this.lado_celda
-        );
-        /* 
-        minosAlmacenados es la variable que se encargará de representar los minos 
-        almacenados en el tablero
-        */
-        this.minosAlmacenados = [];
-        for (let fila = 0; fila < this.filas; fila++) {
-            this.minosAlmacenados[fila] = [];
-            for (let columna = 0; columna < this.columnas; columna++) {
-                this.minosAlmacenados[fila].push("");
-            }
-        }
+        this.posición = createVector(MARGEN_TABLERO, MARGEN_TABLERO);
+        this.celdas = Array.from({ length: this.filas }, () => Array(this.columnas).fill(null));
     }
 
-    set almacenarMino(tetrimino) {
-        for (const pmino of tetrimino.mapaTablero) {
-            if (pmino.y < 0) {
-                //Juego términado
-                tablero = new Tablero();
-                tetrimino = new Tetrimino();
-                lineas_hechas = 0;
-            }
-            this.minosAlmacenados[pmino.x][pmino.y] = tetrimino.nombre;
-        }
-        this.buscarLineasHorizontalesBorrar();
-    }
-
-    buscarLineasHorizontalesBorrar() {
-        let lineas = [];
-        for (let fila = this.filas; fila >= 0; fila--) {
-            let agregar = true;
-            for (let columna = 0; columna < this.columnas; columna++) {
-                if (!this.minosAlmacenados[columna][fila]) {
-                    agregar = false;
-                    break;
-                }
-            }
-            if (agregar) {
-                lineas.push(fila);
-            }
-        }
-        this.borrarLíneasHorizontales(lineas);
-    }
-
-    borrarLíneasHorizontales(lineas) {
-        lineas_hechas += lineas.length;
-        for (const linea of lineas) {
-            for (let fila = linea; fila >= 0; fila--) {
-                for (let columna = 0; columna < this.columnas; columna++) {
-                    if (fila == 0) {
-                        this.minosAlmacenados[columna][fila] = "";
-                        continue;
-                    }
-                    this.minosAlmacenados[columna][fila] =
-                        this.minosAlmacenados[columna][fila - 1];
-                }
-            }
-        }
-    }
-
-    /* 
-    La coordenada es una transformación no lineal donde se aplica un
-    escalamiento (multiplicación) para el ajuste de las medidas y una
-    traslación (suma) para el ajuste de las posiciones.
-  
-    En este caso, no usaremos rotaciones, no se necesita.
-    */
-    coordenada(x, y) {
-        return createVector(x, y).mult(this.lado_celda).add(this.posición);
-    }
-
-    /* 
-    Se encargará del procesamiento lógico para el dibujado 
-    de este elemento 
-    */
     dibujar() {
-        push();
-        noStroke();
-        for (let columna = 0; columna < this.columnas; columna++) {
-            for (let fila = 0; fila < this.filas; fila++) {
-                if ((columna + fila) % 2 == 0) {
-                    fill("black");
-                } else {
-                    fill("#003");
-                }
-                let c = this.coordenada(columna, fila);
-                rect(c.x, c.y, this.lado_celda);
+        for (let fila = 0; fila < this.filas; fila++) {
+            for (let col = 0; col < this.columnas; col++) {
+                const celda = this.celdas[fila][col];
+                const x = this.posición.x + col * this.lado_celda;
+                const y = this.posición.y + fila * this.lado_celda;
+                stroke(50);
+                fill(celda ? celda : 20);
+                rect(x, y, this.lado_celda, this.lado_celda);
             }
         }
-        pop();
-        this.dibujarMinosAlmacenados();
     }
 
-    dibujarMinosAlmacenados() {
-        push();
-        for (let columna = 0; columna < this.columnas; columna++) {
-            for (let fila = 0; fila < this.filas; fila++) {
-                let nombreMino = this.minosAlmacenados[columna][fila];
-                if (nombreMino) {
-                    fill(tetriminosBase[nombreMino].color);
-                    Tetrimino.dibujarMino(this.coordenada(columna, fila));
-                }
+    fijarTetrimino(tetrimino) {
+        for (let bloque of tetrimino.formaActual()) {
+            const x = tetrimino.pos.x + bloque[0];
+            const y = tetrimino.pos.y + bloque[1];
+            if (y >= 0 && y < this.filas && x >= 0 && x < this.columnas) {
+                this.celdas[y][x] = tetrimino.color;
             }
         }
-        pop();
+        this.eliminarFilasCompletas();
+    }
+
+    eliminarFilasCompletas() {
+        let nuevasFilas = [];
+        for (let fila of this.celdas) {
+            if (fila.every(celda => celda !== null)) {
+                nuevasFilas.unshift(Array(this.columnas).fill(null));
+                lineas_hechas++;
+            } else {
+                nuevasFilas.push(fila);
+            }
+        }
+        this.celdas = nuevasFilas;
+    }
+
+    colisiona(tetrimino) {
+        for (let bloque of tetrimino.formaActual()) {
+            const x = tetrimino.pos.x + bloque[0];
+            const y = tetrimino.pos.y + bloque[1];
+            if (
+                x < 0 ||
+                x >= this.columnas ||
+                y >= this.filas ||
+                (y >= 0 && this.celdas[y][x])
+            ) {
+                return true;
+            }
+        }
+        return false;
     }
 }
