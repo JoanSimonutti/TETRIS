@@ -25,8 +25,6 @@ Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript**
 
 ### [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
 
-(Este es un proyecto que actualmente se encuentra en desarrollo)
-
 ---
 
 <div align="end">
