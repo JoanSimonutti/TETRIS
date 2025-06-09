@@ -11,12 +11,3 @@
       canvas {
           filter: drop-shadow(5px 5px 2px rgba(0, 0, 0, 0.4));
       }
-
-      /*
-Explicación:
-
-- El body se centra y tiene un color de fondo rosa suave.
-
-- El canvas (el área donde dibuja p5.js) tiene una sombra para dar profundidad visual.
-
-*/

@@ -38,16 +38,37 @@ class Tablero {
 
     eliminarFilasCompletas() {
         let nuevasFilas = [];
+        let filasEliminadas = 0;
+
         for (let fila of this.celdas) {
             if (fila.every(celda => celda !== null)) {
                 nuevasFilas.unshift(Array(this.columnas).fill(null));
-                lineas_hechas++;
+                filasEliminadas++;
             } else {
                 nuevasFilas.push(fila);
             }
         }
+
         this.celdas = nuevasFilas;
+        lineas_hechas += filasEliminadas;
+
+        // Asignación de puntos por cantidad de líneas simultáneas
+        switch (filasEliminadas) {
+            case 1:
+                puntaje += 100;
+                break;
+            case 2:
+                puntaje += 300;
+                break;
+            case 3:
+                puntaje += 500;
+                break;
+            case 4:
+                puntaje += 800;
+                break;
+        }
     }
+
 
     colisiona(tetrimino) {
         for (let bloque of tetrimino.formaActual()) {

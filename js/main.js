@@ -6,11 +6,13 @@ let regulador_velocidad_teclas = 0;
 let regulador_de_caida = 0;
 let límite_regulador_velocidad_teclas = 100;
 let lineas_hechas = 0;
+let puntaje = 0;
 
-// Variables globales del juego
 let tablero;
 let tetrimino;
 let tetriminosBase;
+
+let juegoPausado = false;  // <-- Estado de pausa
 
 // ==========================
 // SETUP Y DRAW (funciones de p5.js)
@@ -26,6 +28,7 @@ function setup() {
     );
 
     setInterval(() => {
+        if (juegoPausado) return;
         if (millis() - regulador_de_caida < 300) return;
         regulador_de_caida = millis();
         tetrimino.moverAbajo();
@@ -34,6 +37,23 @@ function setup() {
 
 function draw() {
     clear();
+
+    if (juegoPausado) {
+        tablero.dibujar();
+        tetrimino.dibujar();
+
+        push();
+        textAlign(CENTER, CENTER);
+        textSize(55);
+        fill('rgba(255, 0, 0, 0.7)');
+        stroke('white');
+        strokeWeight(4);
+        text('P A U S A', width / 2, height / 2);
+        pop();
+
+        return;
+    }
+
     dibujarPuntaje();
     tablero.dibujar();
     tetrimino.dibujar();
@@ -45,17 +65,18 @@ function draw() {
 // ==========================
 function dibujarPuntaje() {
     push();
-    textSize(20);
+    textSize(22);
     strokeWeight(2);
     stroke("black");
     fill("white");
-    text(
-        `Líneas: ${lineas_hechas}`,
-        tablero.posición.x,
-        tablero.posición.y - tablero.lado_celda / 2
-    );
+
+    const x = tablero.posición.x;
+    const y = tablero.posición.y + tablero.alto + tablero.lado_celda / 2;
+
+    text(`Líneas: ${lineas_hechas}    Puntaje: ${puntaje}`, x, y);
     pop();
 }
+
 
 function keyEventsTetris() {
     if (millis() - regulador_velocidad_teclas < límite_regulador_velocidad_teclas) return;
@@ -86,3 +107,11 @@ function keyEventsTetris() {
     }
 }
 
+// ==========================
+// FUNCION PARA DETECTAR PULSACION DE TECLAS
+// ==========================
+function keyPressed() {
+    if (key.toLowerCase() === 'p') {
+        juegoPausado = !juegoPausado;
+    }
+}
