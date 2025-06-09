@@ -65,7 +65,7 @@ function draw() {
 // ==========================
 function dibujarPuntaje() {
     push();
-    textSize(20);
+    textSize(22);
     strokeWeight(2);
     stroke("black");
     fill("white");
