@@ -7,10 +7,11 @@ let regulador_de_caida = 0;
 let límite_regulador_velocidad_teclas = 100;
 let lineas_hechas = 0;
 
-// Variables globales del juego
 let tablero;
 let tetrimino;
 let tetriminosBase;
+
+let juegoPausado = false;  // <-- Estado de pausa
 
 // ==========================
 // SETUP Y DRAW (funciones de p5.js)
@@ -26,6 +27,7 @@ function setup() {
     );
 
     setInterval(() => {
+        if (juegoPausado) return;  // Si está pausado, no avanza la pieza
         if (millis() - regulador_de_caida < 300) return;
         regulador_de_caida = millis();
         tetrimino.moverAbajo();
@@ -34,6 +36,25 @@ function setup() {
 
 function draw() {
     clear();
+
+    if (juegoPausado) {
+        // Dibuja el tablero y la última pieza para que no se quede en blanco
+        tablero.dibujar();
+        tetrimino.dibujar();
+
+        // Dibuja el texto de "PAUSA"
+        push();
+        textAlign(CENTER, CENTER);
+        textSize(48);
+        fill('rgba(255, 0, 0, 0.7)');
+        stroke('white');
+        strokeWeight(4);
+        text('P A U S A', width / 2, height / 2);
+        pop();
+
+        return;  // No ejecutar nada más mientras está pausado
+    }
+
     dibujarPuntaje();
     tablero.dibujar();
     tetrimino.dibujar();
@@ -86,3 +107,11 @@ function keyEventsTetris() {
     }
 }
 
+// ==========================
+// FUNCION PARA DETECTAR PULSACION DE TECLAS
+// ==========================
+function keyPressed() {
+    if (key.toLowerCase() === 'p') {
+        juegoPausado = !juegoPausado;
+    }
+}
