@@ -1,4 +1,4 @@
-# Tetris - JavaScript
+# 🕹️ Tetris - Versión JavaScript
 
 Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript** utilizando la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el `canvas`, el renderizado y la interacción en tiempo real.
 
@@ -22,6 +22,8 @@ Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript**
 
 - Flechas para mover y girar piezas.
 - Barra espaciadora para caída instantánea.
+
+---
 
 <div align="end">
 
