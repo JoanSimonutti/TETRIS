@@ -1,6 +1,8 @@
 // ==========================
 // IMPORTACIÓN DE CLASES
 // ==========================
+let coloresTetriminos = {}; // Se inicializa en setup()
+
 class Tetrimino {
     constructor() {
         this.reset();
@@ -11,7 +13,7 @@ class Tetrimino {
         this.tipo = random(tipos);
         this.rotacion = 0;
         this.formas = tetriminosBase[this.tipo];
-        this.color = color(random(255), random(255), random(255));
+        this.color = coloresTetriminos[this.tipo]; // Usamos el color fijo
         this.pos = createVector(3, -2);
     }
 

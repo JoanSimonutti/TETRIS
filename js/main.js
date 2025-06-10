@@ -22,6 +22,15 @@ let juegoPausado = false;  // <-- Estado de pausa
 // SETUP Y DRAW (funciones de p5.js)
 // ==========================
 function setup() {
+    coloresTetriminos = {
+        I: color(255, 102, 102),     // Rojo pastel
+        O: color(102, 102, 255),     // Azul pastel
+        T: color(255, 255, 153),     // Amarillo pastel
+        L: color(200, 128, 200),     // Morado pastel
+        J: color(240, 240, 240),     // Blanco (ligeramente grisáceo para distinguir)
+        S: color(144, 238, 144),     // Verde pastel
+        Z: color(153, 255, 255)      // Cian pastel
+    };
     crearMapeoBaseTetriminos();
     tablero = new Tablero();
     tetrimino = new Tetrimino();
