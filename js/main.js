@@ -143,10 +143,11 @@ function dibujarAnimacionesFlotantes() {
         const alpha = map(1 - progreso, 0, 1, 0, 255); // se desvanece
 
         push();
-        textSize(40);
+        textSize(65);
         fill(255, 255, 0, alpha); // amarillo con alpha
         stroke(0, alpha);
         strokeWeight(3);
+        textAlign(CENTER, CENTER);
         text(`+${anim.puntos}`, anim.x, anim.y + yOffset);
         pop();
     }
