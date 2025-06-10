@@ -55,16 +55,16 @@ class Tablero {
         // Asignación de puntos por cantidad de líneas simultáneas
         switch (filasEliminadas) {
             case 1:
-                puntaje += 100;
+                puntaje += 100 * 31;
                 break;
             case 2:
-                puntaje += 300;
+                puntaje += 300 * 31;
                 break;
             case 3:
-                puntaje += 500;
+                puntaje += 500 * 31;
                 break;
             case 4:
-                puntaje += 800;
+                puntaje += 800 * 31;
                 break;
         }
     }

@@ -7,6 +7,8 @@ let regulador_de_caida = 0;
 let límite_regulador_velocidad_teclas = 100;
 let lineas_hechas = 0;
 let puntaje = 0;
+let puntajeAnimado = 0;  // Animación suave del puntaje
+
 
 let tablero;
 let tetrimino;
@@ -37,6 +39,10 @@ function setup() {
 
 function draw() {
     clear();
+
+    // Animación suave del puntaje
+    puntajeAnimado += (puntaje - puntajeAnimado) * 0.01; //Esto suaviza la transición con un factor del 10%. Si querés que sea más lenta, bajá ese 0.1; si querés que sea más rápida, subilo.
+    puntajeAnimado = Math.round(puntajeAnimado);
 
     if (juegoPausado) {
         tablero.dibujar();
@@ -75,7 +81,7 @@ function dibujarPuntaje() {
     const y = tablero.posición.y + tablero.alto + tablero.lado_celda;
 
     text(`Líneas: ${lineas_hechas}`, x, y);
-    text(`Puntaje: ${puntaje}`, x, y + 32);  // 28 píxeles más abajo
+    text(`Puntaje: ${puntajeAnimado}`, x, y + 32);  // 28 píxeles más abajo
 
     pop();
 }
