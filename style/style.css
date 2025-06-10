@@ -2,7 +2,8 @@
           margin: 0;
           padding: 0;
           min-height: 100vh;
-          background-color: rgb(255, 164, 179);
+          background-color: rgb(180, 205, 190);
+          /* Verde grisáceo pastel claro	rgb(180, 205, 190)	Más claro, suave y relajante para la vista  */
           display: flex;
           justify-content: center;
           align-items: center;

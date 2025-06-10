@@ -65,8 +65,8 @@ function draw() {
         push();
         textAlign(CENTER, CENTER);
         textSize(55);
-        fill('rgba(255, 0, 0, 0.7)');
-        stroke('white');
+        fill('rgba(255, 102, 102, 0.8)');
+        stroke('255, 230, 230');
         strokeWeight(4);
         text('P A U S A', width / 2, height / 2);
         pop();
@@ -86,19 +86,27 @@ function draw() {
 // ==========================
 function dibujarPuntaje() {
     push();
-    textSize(28);
-    strokeWeight(2);
-    stroke("black");
-    fill("white");
+    textSize(30);
+
+    // Contorno y sombra para dar legibilidad y profundidad
+    drawingContext.shadowColor = 'rgba(0,0,0,0.5)';
+    drawingContext.shadowBlur = 4;
+    drawingContext.shadowOffsetX = 2;
+    drawingContext.shadowOffsetY = 2;
+
+    strokeWeight(3);
+    stroke(0); // contorno negro
+    fill(255); // texto blanco
 
     const x = tablero.posición.x;
     const y = tablero.posición.y + tablero.alto + tablero.lado_celda;
 
-    text(`Líneas: ${lineas_hechas}`, x, y);
-    text(`Puntaje: ${puntajeAnimado}`, x, y + 32);  // 28 píxeles más abajo
+    text(`Líneas ${lineas_hechas}`, x, y);
+    text(`Puntaje ${puntajeAnimado}`, x, y + 32); // 28 píxeles más abajo
 
     pop();
 }
+
 
 
 function keyEventsTetris() {
