@@ -1,5 +1,7 @@
 # Tetris - Versión JavaScript 🕹️
 
+<img src="assets/tetris-01.png" alt="App-Pic" width="100%">
+
 Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript** utilizando la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el `canvas`, el renderizado y la interacción en tiempo real.
 
 ### Características principales
@@ -21,6 +23,7 @@ Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript**
 
 - Flechas para mover y girar piezas.
 - Barra espaciadora para caída instantánea.
+- Pausar el juego con la letra "P".
 
 ### [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
 

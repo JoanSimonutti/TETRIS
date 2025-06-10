@@ -41,6 +41,7 @@ function draw() {
     if (juegoPausado) {
         tablero.dibujar();
         tetrimino.dibujar();
+        dibujarPuntaje();
 
         push();
         textAlign(CENTER, CENTER);
@@ -65,15 +66,17 @@ function draw() {
 // ==========================
 function dibujarPuntaje() {
     push();
-    textSize(22);
+    textSize(28);
     strokeWeight(2);
     stroke("black");
     fill("white");
 
     const x = tablero.posición.x;
-    const y = tablero.posición.y + tablero.alto + tablero.lado_celda / 2;
+    const y = tablero.posición.y + tablero.alto + tablero.lado_celda;
 
-    text(`Líneas: ${lineas_hechas}    Puntaje: ${puntaje}`, x, y);
+    text(`Líneas: ${lineas_hechas}`, x, y);
+    text(`Puntaje: ${puntaje}`, x, y + 28);  // 28 píxeles más abajo
+
     pop();
 }
 
