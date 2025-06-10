@@ -2,22 +2,14 @@
 
 <img src="assets/tetris-01.png" alt="App-Pic" width="100%">
 
-Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript** utilizando la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el `canvas`, el renderizado y la interacción en tiempo real.
+Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript** <br>utilizando la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el `canvas`, el renderizado y la interacción en tiempo real.
 
-### Características principales
+### Características integradas del juego
 
-- **Lógica completa del juego**: colisiones, rotaciones, detección de líneas y generación aleatoria de piezas (tetriminos).
-- **Animaciones suaves y efectos visuales**: incluye sombras y espectros de caída.
-- **Arquitectura modular**: clases separadas como `Tetrimino` y `Tablero`, lo que facilita el mantenimiento y la escalabilidad.
-- **Sistema de puntuación**: basado en líneas completadas.
-- **Listo para ampliar**: preparado para agregar niveles, sonidos, rankings y más.
-
-### Aplicación práctica de
-
-- Manipulación de vectores.
-- Diseño orientado a objetos (OOP).
-- Renderizado en tiempo real.
-- Optimización de entradas del usuario con JavaScript puro.
+- Lógica completa: colisiones, rotaciones, líneas y generación aleatoria de piezas, con manipulación de vectores y renderizado en tiempo real.
+- Efectos visuales suaves: sombras y espectros de caída que mejoran la experiencia estética y dinámica.
+- Arquitectura modular: clases organizadas con principios OOP para facilitar mantenimiento y escalabilidad.
+- Puntuación por líneas: sistema que motiva al jugador y permite escalar a niveles más complejos.
 
 ### Controles por teclado
 
