@@ -11,7 +11,7 @@
 
 - Flechas del teclado para mover y girar piezas.
 - Barra espaciadora para caída instantánea.
-- Letra "P" para pausar/reanudar el juego.
+- Letra "P" para pausar / reanudar el juego.
 
 ## [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
 
