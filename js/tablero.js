@@ -58,20 +58,21 @@ class Tablero {
 
         switch (filasEliminadas) {
             case 1:
-                puntosGanados = 1000 * 5;
+                puntosGanados = int(random(5000, 8000)); // 5000 a 7999
                 break;
             case 2:
-                puntosGanados = 3000 * 5;
+                puntosGanados = int(random(15000, 20000)); // 15000 a 19999
                 break;
             case 3:
-                puntosGanados = 5000 * 9;
+                puntosGanados = int(random(43000, 50000)); // 43000 a 49999
                 break;
             case 4:
-                puntosGanados = 10000 * 12;
+                puntosGanados = int(random(124000, 130000)); // 124000 a 129999
                 break;
         }
 
         if (puntosGanados > 0) {
+            console.log("Ganaste puntos:", puntosGanados);
             puntaje += puntosGanados;
 
             animacionesFlotantes.push({
