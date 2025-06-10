@@ -4,8 +4,9 @@
 
 ### Sobre el proyecto
 
-- Versión del clásico juego Tetris desarrollada en **JavaScript**, utilizando la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el canvas, el renderizado y la interacción en tiempo real.
-- El juego cuenta con una lógica completa, animaciones suaves, arquitectura modular, y está diseñado para ser escalable y fácilmente extensible.
+- Versión del clásico juego Tetris desarrollada en **JavaScript**.
+- Se utilizó la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el canvas, el renderizado y la interacción en tiempo real.
+- El juego cuenta con una lógica completa, arquitectura modular y está diseñado para ser escalable.
 
 ### Controles por teclado
 
