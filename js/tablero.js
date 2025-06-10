@@ -53,19 +53,33 @@ class Tablero {
         lineas_hechas += filasEliminadas;
 
         // Asignación de puntos por cantidad de líneas simultáneas
+
+        let puntosGanados = 0;
+
         switch (filasEliminadas) {
             case 1:
-                puntaje += 100 * 31;
+                puntosGanados = 1000 * 5;
                 break;
             case 2:
-                puntaje += 300 * 31;
+                puntosGanados = 3000 * 5;
                 break;
             case 3:
-                puntaje += 500 * 31;
+                puntosGanados = 5000 * 9;
                 break;
             case 4:
-                puntaje += 800 * 31;
+                puntosGanados = 10000 * 12;
                 break;
+        }
+
+        if (puntosGanados > 0) {
+            puntaje += puntosGanados;
+
+            animacionesFlotantes.push({
+                puntos: puntosGanados,
+                x: tablero.posición.x + tablero.ancho / 2,
+                y: tablero.posición.y + tablero.alto / 2,
+                inicio: millis()
+            });
         }
     }
 

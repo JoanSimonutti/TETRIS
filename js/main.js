@@ -8,11 +8,13 @@ let límite_regulador_velocidad_teclas = 100;
 let lineas_hechas = 0;
 let puntaje = 0;
 let puntajeAnimado = 0;  // Animación suave del puntaje
+let animacionesFlotantes = [];
 
 
 let tablero;
 let tetrimino;
 let tetriminosBase;
+
 
 let juegoPausado = false;  // <-- Estado de pausa
 
@@ -41,13 +43,15 @@ function draw() {
     clear();
 
     // Animación suave del puntaje
-    puntajeAnimado += (puntaje - puntajeAnimado) * 0.01; //Esto suaviza la transición con un factor del 10%. Si querés que sea más lenta, bajá ese 0.1; si querés que sea más rápida, subilo.
+    puntajeAnimado += (puntaje - puntajeAnimado) * 0.02; //Esto suaviza la transición con un factor del 10%. Si querés que sea más lenta, bajá ese 0.1; si querés que sea más rápida, subilo.
     puntajeAnimado = Math.round(puntajeAnimado);
 
     if (juegoPausado) {
-        tablero.dibujar();
+        tablero.dibujar();    // cosas que se muestran cuando el juego esta en "pausa"
         tetrimino.dibujar();
         dibujarPuntaje();
+        dibujarAnimacionesFlotantes();
+
 
         push();
         textAlign(CENTER, CENTER);
@@ -63,8 +67,9 @@ function draw() {
 
     dibujarPuntaje();
     tablero.dibujar();
-    tetrimino.dibujar();
+    tetrimino.dibujar();             // cosas que se muestran en pantalla
     keyEventsTetris();
+    dibujarAnimacionesFlotantes();
 }
 
 // ==========================
@@ -122,5 +127,27 @@ function keyEventsTetris() {
 function keyPressed() {
     if (key.toLowerCase() === 'p') {
         juegoPausado = !juegoPausado;
+    }
+}
+
+// ==========================
+// FUNCION PARA DIBUJAR EL TEXTO FLOTANTE
+// ==========================
+
+function dibujarAnimacionesFlotantes() {
+    animacionesFlotantes = animacionesFlotantes.filter(a => millis() - a.inicio < 1000);
+
+    for (let anim of animacionesFlotantes) {
+        const progreso = (millis() - anim.inicio) / 1000;
+        const yOffset = -progreso * 50; // se mueve hacia arriba
+        const alpha = map(1 - progreso, 0, 1, 0, 255); // se desvanece
+
+        push();
+        textSize(40);
+        fill(255, 255, 0, alpha); // amarillo con alpha
+        stroke(0, alpha);
+        strokeWeight(3);
+        text(`+${anim.puntos}`, anim.x, anim.y + yOffset);
+        pop();
     }
 }
