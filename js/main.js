@@ -75,7 +75,7 @@ function dibujarPuntaje() {
     const y = tablero.posición.y + tablero.alto + tablero.lado_celda;
 
     text(`Líneas: ${lineas_hechas}`, x, y);
-    text(`Puntaje: ${puntaje}`, x, y + 28);  // 28 píxeles más abajo
+    text(`Puntaje: ${puntaje}`, x, y + 32);  // 28 píxeles más abajo
 
     pop();
 }
