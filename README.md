@@ -12,7 +12,7 @@ Este es un proyecto del clásico juego **Tetris** desarrollado en **JavaScript**
 - **Sistema de puntuación**: basado en líneas completadas.
 - **Listo para ampliar**: preparado para agregar niveles, sonidos, rankings y más.
 
-### Este proyecto se centra en la aplicación práctica de
+### Aplicación práctica de
 
 - Manipulación de vectores.
 - Diseño orientado a objetos (OOP).
