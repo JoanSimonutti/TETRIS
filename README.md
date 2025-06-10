@@ -13,9 +13,7 @@
 - Barra espaciadora para caída instantánea.
 - Letra "P" para pausar/reanudar el juego.
 
-### [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
-
----
+## [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
 
 <div align="end">
 
