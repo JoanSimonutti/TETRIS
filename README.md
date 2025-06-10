@@ -2,9 +2,10 @@
 
 <img src="assets/tetris-01.png" alt="App-Pic" width="100%">
 
-## Sobre el proyecto
+### Sobre el proyecto
 
-Esta es una versión del clásico juego Tetris, desarrollada en **JavaScript** utilizando la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el canvas, el renderizado y la interacción en tiempo real. <br>El juego cuenta con una lógica completa, animaciones suaves, arquitectura modular, y está diseñado para ser escalable y fácilmente extensible.
+- Esta es una versión del clásico juego Tetris desarrollada en **JavaScript**,<br>utilizando la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el canvas, el renderizado y la interacción en tiempo real.
+- El juego cuenta con una lógica completa, animaciones suaves, arquitectura modular, y está diseñado para ser escalable y fácilmente extensible.
 
 ### Controles por teclado
 
