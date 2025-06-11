@@ -10,13 +10,13 @@
 
 ### Controles por teclado
 
-- ← o A: Mover pieza a la izquierda
+- ⬆️ o W: Rotar la pieza
 
-- → o D: Mover pieza a la derecha
+- ⬅️ o A: Mover pieza a la izquierda
 
-- ↓ o S: Mover pieza hacia abajo
+- ➡️ o D: Mover pieza a la derecha
 
-- ↑ o W: Rotar la pieza
+- ⬇️ o S: Mover pieza hacia abajo
 
 - Barra espaciadora: Caída instantánea
 
