@@ -61,16 +61,23 @@ function draw() {
         dibujarPuntaje();
         dibujarAnimacionesFlotantes();
 
-
         push();
         textAlign(CENTER, CENTER);
         textSize(55);
-        fill('rgba(255, 102, 102, 0.8)');
-        stroke('255, 230, 230');
-        strokeWeight(4);
+
+        // Sombra para dar profundidad
+        drawingContext.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        drawingContext.shadowBlur = 4;
+        drawingContext.shadowOffsetX = 2;
+        drawingContext.shadowOffsetY = 2;
+
+        // Contorno y relleno
+        strokeWeight(3);
+        stroke(0);           // contorno negro
+        fill(255);           // texto blanco
+
         text('P A U S A', width / 2, height / 2);
         pop();
-
         return;
     }
 

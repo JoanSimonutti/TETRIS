@@ -58,16 +58,16 @@ class Tablero {
 
         switch (filasEliminadas) {
             case 1:
-                puntosGanados = int(random(5000, 8000)); // 5000 a 7999
+                puntosGanados = int(random(5500, 8500)); // 5000 a 7999
                 break;
             case 2:
-                puntosGanados = int(random(15000, 20000)); // 15000 a 19999
+                puntosGanados = int(random(15500, 20000)); // 15000 a 19999
                 break;
             case 3:
-                puntosGanados = int(random(43000, 50000)); // 43000 a 49999
+                puntosGanados = int(random(43500, 50000)); // 43000 a 49999
                 break;
             case 4:
-                puntosGanados = int(random(124000, 130000)); // 124000 a 129999
+                puntosGanados = int(random(124500, 130000)); // 124000 a 129999
                 break;
         }
 
