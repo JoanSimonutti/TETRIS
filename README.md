@@ -10,10 +10,6 @@
 
 ### Controles por teclado
 
-## Controles
-
-CONTROLES
-
 - ← o A: Mover pieza a la izquierda
 
 - → o D: Mover pieza a la derecha
