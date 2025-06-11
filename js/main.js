@@ -7,8 +7,10 @@ let regulador_de_caida = 0;
 let límite_regulador_velocidad_teclas = 100;
 let lineas_hechas = 0;
 let puntaje = 0;
-let puntajeAnimado = 0;  // Animación suave del puntaje
+let puntajeAnimado = 0;  // animación suave del puntaje
 let animacionesFlotantes = [];
+let tiempoMensajeReinicio = 0; // guarda cuándo se reinició el juego
+const DURACION_MENSAJE_REINICIO = 2000; // en milisegundos (2 segundos)
 
 
 let tablero;
@@ -18,9 +20,10 @@ let tetriminosBase;
 
 let juegoPausado = false;  // <-- Estado de pausa
 
-// ==========================
+// =================================
 // SETUP Y DRAW (funciones de p5.js)
-// ==========================
+// =================================
+
 function setup() {
     coloresTetriminos = {
         I: color(255, 102, 102),     // Rojo pastel
@@ -54,17 +57,24 @@ function setup() {
 
 function draw() {
     clear();
-
-    // Animación suave del puntaje
+    //=================================
+    // Animación suave del puntaje en pantalla (se desvanece hacia arriba)
+    //=================================
     puntajeAnimado += (puntaje - puntajeAnimado) * 0.02; //Esto suaviza la transición con un factor del 10%. Si querés que sea más lenta, bajá ese 0.1; si querés que sea más rápida, subilo.
     puntajeAnimado = Math.round(puntajeAnimado);
 
+    //=================================
+    // Mostrar mensaje PAUSA (si el juego esta pausado)
+    //=================================
     if (juegoPausado) {
         tablero.dibujar();    // cosas que se muestran cuando el juego esta en "pausa"
         tetrimino.dibujar();
         dibujarPuntaje();
         dibujarAnimacionesFlotantes();
 
+        //=================================
+        // Mensaje de pausa
+        //=================================
         push();
         textAlign(CENTER, CENTER);
         textSize(55);
@@ -80,20 +90,44 @@ function draw() {
         stroke(0);           // contorno negro
         fill(255);           // texto blanco
 
-        text('P A U S A', width / 2, height / 2);
+        text('Pause', width / 2, height / 2);
         pop();
         return;
     }
+
 
     dibujarPuntaje();
     tablero.dibujar();
     tetrimino.dibujar();             // cosas que se muestran en pantalla
     keyEventsTetris();
     dibujarAnimacionesFlotantes();
+
+    //=================================
+    // Mostrar mensaje temporal de REINICIO
+    //=================================
+    if (millis() - tiempoMensajeReinicio < DURACION_MENSAJE_REINICIO) {
+        push();
+        textAlign(CENTER, CENTER);
+        textSize(55);
+
+        // Sombra para dar profundidad
+        drawingContext.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        drawingContext.shadowBlur = 4;
+        drawingContext.shadowOffsetX = 2;
+        drawingContext.shadowOffsetY = 2;
+
+        // Contorno y relleno
+        strokeWeight(3);
+        stroke(0);           // contorno negro
+        fill(255);           // texto blanco
+
+        text('New Game', width / 2, height / 2);
+        pop();
+    }
 }
 
 // ==========================
-// FUNCIONES DE INTERFAZ
+// FUNCIONES DE INTERFAZ que se muestra abajo del canva
 // ==========================
 function dibujarPuntaje() {
     push();
@@ -112,52 +146,10 @@ function dibujarPuntaje() {
     const x = tablero.posición.x;
     const y = tablero.posición.y + tablero.alto + tablero.lado_celda;
 
-    text(`Líneas ${lineas_hechas}`, x, y);
-    text(`Puntaje ${puntajeAnimado}`, x, y + 32); // 28 píxeles más abajo
+    text(`Lines ${lineas_hechas}`, x, y);
+    text(`Score ${puntajeAnimado}`, x, y + 32); // 28 píxeles más abajo
 
     pop();
-}
-
-// ===============================
-// FUNCIONES DE CONTROL POR TECLAS
-// ===============================
-
-function keyEventsTetris() {
-    if (millis() - regulador_velocidad_teclas < límite_regulador_velocidad_teclas) return;
-    regulador_velocidad_teclas = millis();
-    límite_regulador_velocidad_teclas = 100;
-
-    if (keyIsDown(RIGHT_ARROW)) {
-        tetrimino.moverDerecha();
-        regulador_de_caida = millis();
-    }
-    if (keyIsDown(LEFT_ARROW)) {
-        tetrimino.moverIzquierda();
-        regulador_de_caida = millis();
-    }
-    if (keyIsDown(DOWN_ARROW)) {
-        tetrimino.moverAbajo();
-        regulador_de_caida = millis();
-    }
-    if (keyIsDown(UP_ARROW)) {
-        límite_regulador_velocidad_teclas = 150;
-        tetrimino.girar();
-        regulador_de_caida = millis();
-    }
-    if (keyIsDown(32)) { // Barra espaciadora
-        límite_regulador_velocidad_teclas = 200;
-        tetrimino.ponerEnElFondo();
-        regulador_de_caida = millis();
-    }
-}
-
-// ==========================================
-// FUNCION PARA DETECTAR PULSACION DE TECLAS
-// ==========================================
-function keyPressed() {
-    if (key.toLowerCase() === 'p') {
-        juegoPausado = !juegoPausado;
-    }
 }
 
 // =======================================
@@ -200,5 +192,93 @@ function dibujarAnimacionesFlotantes() {
             text(`+${anim.puntos}`, anim.x, anim.y + yOffset);
             pop();
         */
+    }
+}
+
+// ===============================
+// FUNCIONES DE CONTROL POR TECLAS
+// ===============================
+
+function keyEventsTetris() { // Detecta si una tecla está siendo presionada continuamente
+    if (millis() - regulador_velocidad_teclas < límite_regulador_velocidad_teclas) return;
+    regulador_velocidad_teclas = millis();
+    límite_regulador_velocidad_teclas = 100;
+
+    // Flechas o teclas WASD para mover y girar
+    // Movimiento derecha
+    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) { //  Derecha o D
+        tetrimino.moverDerecha();
+        regulador_de_caida = millis();
+    }
+
+    // Movimiento izquierda
+    if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) { //  Izquierda o A
+        tetrimino.moverIzquierda();
+        regulador_de_caida = millis();
+    }
+
+    // Movimiento abajo
+    if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) { // Abajo o S
+        tetrimino.moverAbajo();
+        regulador_de_caida = millis();
+    }
+
+    // Rotar
+    if (keyIsDown(UP_ARROW) || keyIsDown(87)) { // Arriba o W
+        límite_regulador_velocidad_teclas = 150;
+        tetrimino.girar();
+        regulador_de_caida = millis();
+    }
+
+    // Caída instantánea
+    if (keyIsDown(32)) { // Barra espaciadora
+        límite_regulador_velocidad_teclas = 200;
+        tetrimino.ponerEnElFondo();
+        regulador_de_caida = millis();
+    }
+}
+
+// =================================
+// FUNCION PARA REINICIAR EL JUEGO
+// =================================
+
+
+// Función que crea un nuevo tetrimino
+function nuevoTetrimino() {
+    return new Tetrimino();
+}
+
+// Función para reiniciar todo el estado del juego
+function reiniciarJuego() {
+    // Vacía la grilla del tablero (lo deja como nuevo)
+    tablero.reiniciar();
+    tiempoMensajeReinicio = millis(); // activa el mensaje
+
+    // Crea una nueva pieza
+    tetrimino = nuevoTetrimino();
+
+    // Reinicia variables de juego
+    puntaje = 0;
+    puntajeAnimado = 0;
+    lineas_hechas = 0;
+    juegoPausado = false;
+    juegoTerminado = false;
+    tiempoInicio = millis(); // Registra el nuevo tiempo de inicio
+    tiempoMensajeReinicio = millis(); // Marca el momento del reinicio
+
+}
+
+
+// ==========================================
+// FUNCION PARA DETECTAR PULSACION DE TECLAS
+// ==========================================
+
+function keyPressed() {  // Detecta teclas presionadas una vez (como eventos individuales)
+    if (key.toLowerCase() === 'p') {
+        juegoPausado = !juegoPausado;   // Poner pausa o quitar pausa
+    }
+
+    if (key.toLowerCase() === 'n') {
+        reiniciarJuego();  // Reinicia todo
     }
 }

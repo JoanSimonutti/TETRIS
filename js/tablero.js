@@ -58,16 +58,16 @@ class Tablero {
 
         switch (filasEliminadas) {
             case 1:
-                puntosGanados = int(random(5500, 8500)); // 5000 a 7999
+                puntosGanados = int(random(5500, 8500)); // 5500 a 7999
                 break;
             case 2:
-                puntosGanados = int(random(15500, 20000)); // 15000 a 19999
+                puntosGanados = int(random(15500, 20000)); // 15500 a 19999
                 break;
             case 3:
-                puntosGanados = int(random(43500, 50000)); // 43000 a 49999
+                puntosGanados = int(random(43500, 50000)); // 43500 a 49999
                 break;
             case 4:
-                puntosGanados = int(random(124500, 130000)); // 124000 a 129999
+                puntosGanados = int(random(124500, 130000)); // 124500 a 129999
                 break;
         }
 
@@ -99,5 +99,10 @@ class Tablero {
             }
         }
         return false;
+    }
+
+    // Esta es la función nueva para limpiar el tablero
+    reiniciar() {
+        this.celdas = Array.from({ length: this.filas }, () => Array(this.columnas).fill(null));
     }
 }
