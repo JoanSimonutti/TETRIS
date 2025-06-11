@@ -10,9 +10,16 @@
 
 ### Controles por teclado
 
-- Flechas del teclado para mover y girar piezas.
-- Barra espaciadora para caída instantánea.
-- Letra "P" para pausar / reanudar el juego.
+## Controles
+
+| Tecla ------------| Acción |
+| ← o A ------------| Mover pieza a la izquierda |
+| → o D ------------| Mover pieza a la derecha |
+| ↓ o S ------------| Mover pieza hacia abajo |
+| ↑ o W ------------| Rotar la pieza |
+| P ----------------| Pausar o reanudar el juego |
+| N ----------------| Reiniciar el juego |
+| Barra espaciadora | Caída instantánea |
 
 ## [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
 
