@@ -48,6 +48,10 @@ function setup() {
     }, 500);
 }
 
+// ===========================================
+// FUNCIONES DE DRAW, DIBUJAR DENTRO DEL CANVA
+// ===========================================
+
 function draw() {
     clear();
 
@@ -114,7 +118,9 @@ function dibujarPuntaje() {
     pop();
 }
 
-
+// ===============================
+// FUNCIONES DE CONTROL POR TECLAS
+// ===============================
 
 function keyEventsTetris() {
     if (millis() - regulador_velocidad_teclas < límite_regulador_velocidad_teclas) return;
@@ -145,18 +151,18 @@ function keyEventsTetris() {
     }
 }
 
-// ==========================
+// ==========================================
 // FUNCION PARA DETECTAR PULSACION DE TECLAS
-// ==========================
+// ==========================================
 function keyPressed() {
     if (key.toLowerCase() === 'p') {
         juegoPausado = !juegoPausado;
     }
 }
 
-// ==========================
+// =======================================
 // FUNCION PARA DIBUJAR EL TEXTO FLOTANTE
-// ==========================
+// =======================================
 
 function dibujarAnimacionesFlotantes() {
     animacionesFlotantes = animacionesFlotantes.filter(a => millis() - a.inicio < 1000);
@@ -168,11 +174,31 @@ function dibujarAnimacionesFlotantes() {
 
         push();
         textSize(65);
-        fill(255, 255, 0, alpha); // amarillo con alpha
-        stroke(0, alpha);
-        strokeWeight(3);
         textAlign(CENTER, CENTER);
+
+        // Sombra con alpha
+        drawingContext.shadowColor = `rgba(0, 0, 0, ${alpha * 0.5})`; // sombra proporcional al alpha
+        drawingContext.shadowBlur = 4;
+        drawingContext.shadowOffsetX = 2;
+        drawingContext.shadowOffsetY = 2;
+
+        // Contorno y relleno
+        strokeWeight(3);
+        stroke(0, alpha);        // contorno negro con alpha
+        fill(255, 255, 255, alpha); // blanco con alpha
+
         text(`+${anim.puntos}`, anim.x, anim.y + yOffset);
         pop();
+
+        /* 
+            push();     Este lo comento, porque estoy probando unificar los estilos de letras
+            textSize(65);
+            fill(255, 255, 0, alpha); // amarillo con alpha
+            stroke(0, alpha);
+            strokeWeight(3);
+            textAlign(CENTER, CENTER);
+            text(`+${anim.puntos}`, anim.x, anim.y + yOffset);
+            pop();
+        */
     }
 }
