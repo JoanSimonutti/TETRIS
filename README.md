@@ -8,7 +8,7 @@
 - Se integra la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el canvas, el renderizado y la interacción en tiempo real.
 - El juego cuenta con una lógica completa, arquitectura modular y está diseñado para ser escalable.
 
-### Controles por teclado
+### Controles por teclado:
 
 - ⬆️ o W: Rotar la pieza
 
