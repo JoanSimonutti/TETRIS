@@ -6,8 +6,7 @@
 
 - Para la parte gráfica e interactiva se utiliza **[p5.js](https://p5js.org/es/)**, aprovechando sus herramientas para dibujar las piezas, manejar el canvas y responder a las acciones del jugador en tiempo real.
 
-- Este es un proyecto en el que sigo trabajando y mejorando en mis tiempos libres. Soy un apasionado de la programación y disfruto agregando nuevas funciones y optimizando la experiencia del usuario.<br>
-  Si quieres aportar ideas, mejoras o funciones, ¡estaré encantado de recibir tus contribuciones!
+- **Este es un proyecto en constante desarrollo, al que dedico tiempo en mis momentos libres.<br>La programación es mi mayor pasión, y disfruto creando nuevas funcionalidades y mejorando la experiencia del usuario.<br>Si tienes ideas, sugerencias o quieres contribuir, tus aportes serán más que bienvenidos!**
 
 ### Controles por teclado:
 
