@@ -1,4 +1,4 @@
-# TETRIS - Versión JavaScript 🕹️ 🕹️ 🕹️
+# TETRIS
 
 <img src="assets/tetris-01.png" alt="App-Pic" width="100%">
 
@@ -6,7 +6,8 @@
 
 - Para la parte gráfica e interactiva se utiliza **[p5.js](https://p5js.org/es/)**, aprovechando sus herramientas para dibujar las piezas, manejar el canvas y responder a las acciones del jugador en tiempo real.
 
-- Este es un proyecto en el cual sigo trabajando y mejorando en mis tiempos libres, ya que soy un apasionado de la programación y disfruto agregando nuevas funciones y mejorando la experiencia del usuario.
+- Este es un proyecto en el que sigo trabajando y mejorando en mis tiempos libres. Soy un apasionado de la programación y disfruto agregando nuevas funciones y optimizando la experiencia del usuario.<br>
+  Si quieres aportar ideas, mejoras o funciones, ¡estaré encantado de recibir tus contribuciones!
 
 ### Controles por teclado:
 
