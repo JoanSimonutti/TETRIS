@@ -1,4 +1,4 @@
-# Tetris - Versión JavaScript 🕹️
+# Tetris - Versión JavaScript 🕹️ 🕹️ 🕹️
 
 <img src="assets/tetris-01.png" alt="App-Pic" width="100%">
 
