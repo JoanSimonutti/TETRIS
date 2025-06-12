@@ -3,23 +3,24 @@
 <img src="assets/tetris-01.png" alt="App-Pic" width="100%">
 
 - Versión del clásico juego desarrollada en **JavaScript**.
-- Se integra la biblioteca gráfica **[p5.js](https://p5js.org/es/)** para gestionar el canvas, el renderizado y la interacción en tiempo real.
+
+- Para la parte gráfica e interactiva se utiliza **[p5.js](https://p5js.org/es/)**, aprovechando sus herramientas para dibujar las piezas, manejar el canvas y responder a las acciones del jugador en tiempo real.
 
 ### Controles por teclado:
 
-- ⬆️ o W: Rotar la pieza
+- ⬆️ o **W**: Rotar la pieza
 
-- ⬅️ o A: Mover pieza a la izquierda
+- ⬅️ o **A**: Mover pieza a la izquierda
 
-- ➡️ o D: Mover pieza a la derecha
+- ➡️ o **D**: Mover pieza a la derecha
 
-- ⬇️ o S: Mover pieza hacia abajo
+- ⬇️ o **S**: Mover pieza hacia abajo
 
-- Barra espaciadora: Caída instantánea
+- **Barra espaciadora**: Caída instantánea
 
-- P: Pausar o reanudar el juego
+- **P**: Pausar o reanudar el juego
 
-- N: Reiniciar el juego
+- **N**: Reiniciar el juego
 
 ## [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
 
