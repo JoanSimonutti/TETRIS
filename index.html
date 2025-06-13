@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Define el tipo de documento HTML5 -->
     <meta charset="UTF-8" />
+
+    <!-- Título que se mostrará en la pestaña del navegador -->
     <title>Tetris-Javascript</title>
+
+    <!-- Enlace al archivo CSS externo para aplicar estilos visuales -->
     <link rel="stylesheet" href="style/style.css" />
+
+    <!-- Inclusión de la librería p5.js desde CDN (usada para gráficos y animación) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
   </head>
 
   <body>
+    <!-- Carga del código JavaScript en módulos ES6 -->
+    <!-- El orden importa si hay dependencias: main.js se debe cargar último -->
+
+    <!-- Board: contiene la clase para el tablero del juego -->
     <script type="module" src="src/board.js"></script>
+
+    <!-- Piece: contiene la clase que define el comportamiento de los tetriminos -->
     <script type="module" src="src/piece.js"></script>
+
+    <!-- Main: el archivo que inicializa y ejecuta todo el juego -->
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
+
+<!-- ¿Qué estás aprendiendo acá?
+- Que los archivos type="module" permiten usar import y export, pero no comparten el contexto global como en scripts clásicos.
+- Que el orden de los <script> no siempre importa con módulos si no hay ejecución inmediata, pero por buena práctica se pone main.js al final (porque es el punto de entrada).
+- Que p5.js debe cargarse antes de cualquier script que use funciones como createCanvas, draw, setup, etc. -->
