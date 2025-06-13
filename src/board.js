@@ -1,26 +1,24 @@
-// ==========================
-// IMPORTACIÓN DE CLASES
-// ==========================
-class Tablero {
-    constructor() {
-        this.columnas = 10;
-        this.filas = 20;
-        this.lado_celda = 30;
-        this.ancho = this.columnas * this.lado_celda;
-        this.alto = this.filas * this.lado_celda;
-        this.posición = createVector(MARGEN_TABLERO, MARGEN_TABLERO);
-        this.celdas = Array.from({ length: this.filas }, () => Array(this.columnas).fill(null));
+export class Board {
+    constructor({ columnas = 10, filas = 20, ladoCelda = 30, margen = 10, gameState }) {
+        this.columnas = columnas;
+        this.filas = filas;
+        this.ladoCelda = ladoCelda;
+        this.ancho = columnas * ladoCelda;
+        this.alto = filas * ladoCelda;
+        this.posicion = createVector(margen, margen);
+        this.celdas = Array.from({ length: filas }, () => Array(columnas).fill(null));
+        this.gameState = gameState; // Estado compartido del juego (puntaje, líneas, animaciones)
     }
 
     dibujar() {
         for (let fila = 0; fila < this.filas; fila++) {
             for (let col = 0; col < this.columnas; col++) {
                 const celda = this.celdas[fila][col];
-                const x = this.posición.x + col * this.lado_celda;
-                const y = this.posición.y + fila * this.lado_celda;
+                const x = this.posicion.x + col * this.ladoCelda;
+                const y = this.posicion.y + fila * this.ladoCelda;
                 stroke(50);
                 fill(celda ? celda : 20);
-                rect(x, y, this.lado_celda, this.lado_celda);
+                rect(x, y, this.ladoCelda, this.ladoCelda);
             }
         }
     }
@@ -50,40 +48,35 @@ class Tablero {
         }
 
         this.celdas = nuevasFilas;
-        lineas_hechas += filasEliminadas;
+        this.gameState.lineasHechas += filasEliminadas;
 
-        // Asignación de puntos por cantidad de líneas simultáneas
-
+        // Sistema de puntuación por líneas
         let puntosGanados = 0;
-
         switch (filasEliminadas) {
             case 1:
-                puntosGanados = int(random(5500, 8500)); // 5500 a 7999
+                puntosGanados = int(random(5500, 8500));
                 break;
             case 2:
-                puntosGanados = int(random(15500, 20000)); // 15500 a 19999
+                puntosGanados = int(random(15500, 20000));
                 break;
             case 3:
-                puntosGanados = int(random(43500, 50000)); // 43500 a 49999
+                puntosGanados = int(random(43500, 50000));
                 break;
             case 4:
-                puntosGanados = int(random(124500, 130000)); // 124500 a 129999
+                puntosGanados = int(random(124500, 130000));
                 break;
         }
 
         if (puntosGanados > 0) {
-            console.log("Ganaste puntos:", puntosGanados);
-            puntaje += puntosGanados;
-
-            animacionesFlotantes.push({
+            this.gameState.puntaje += puntosGanados;
+            this.gameState.animacionesFlotantes.push({
                 puntos: puntosGanados,
-                x: tablero.posición.x + tablero.ancho / 2,
-                y: tablero.posición.y + tablero.alto / 2,
+                x: this.posicion.x + this.ancho / 2,
+                y: this.posicion.y + this.alto / 2,
                 inicio: millis()
             });
         }
     }
-
 
     colisiona(tetrimino) {
         for (let bloque of tetrimino.formaActual()) {
@@ -101,7 +94,6 @@ class Tablero {
         return false;
     }
 
-    // Esta es la función nueva para limpiar el tablero
     reiniciar() {
         this.celdas = Array.from({ length: this.filas }, () => Array(this.columnas).fill(null));
     }
