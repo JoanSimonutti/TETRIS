@@ -1,75 +1,81 @@
-//==========================================================================================
-//Este archivo contiene la clase Board, que representa el tablero del Tetris.
-//==========================================================================================
-export class Board {  //Exportamos la clase para poder importarla en otros archivos con import { Board } from './board.js'.                     
-    constructor({ columnas = 10, filas = 20, ladoCelda = 30, margen = 10, gameState }) {  //El constructor recibe un objeto con configuraciones del tablero.
-        this.columnas = columnas;                                                         //Todas tienen valores por defecto, excepto gameState, que es obligatorio. 
-        this.filas = filas;        //Definimos el tamaño del tablero: cantidad de columnas y filas, y el tamaño de cada celda (cuadro cuadrado).
-        this.ladoCelda = ladoCelda;
-        this.ancho = columnas * ladoCelda;  //Calculamos el ancho y el alto del tablero en píxeles.
-        this.alto = filas * ladoCelda;
-        this.posicion = createVector(margen, margen);  //Usamos p5.js para definir la posición inicial del tablero en pantalla (arriba a la izquierda con margen).
-        this.celdas = Array.from({ length: filas }, () => Array(columnas).fill(null));  //Creamos una matriz (array bidimensional) de null, que representa un tablero vacío.
-        this.gameState = gameState; // Estado compartido del juego (puntaje, líneas, animaciones)
-    }     //Guardamos una referencia al estado del juego (puntaje, líneas, etc.).
+//=====================================================
+//Esta clase representa el tablero de juego del Tetris
+//Qué vas a poder hacer con esto:
+//Entender cómo se pinta el tablero en pantalla.
+//Comprender cómo se fijan las piezas cuando chocan.
+//Ver cómo se detectan y eliminan líneas completas.
+//Saber cómo se suman puntos y se actualiza el estado general del juego.
+//Volver más adelante y modificar o ampliar esta clase sin miedo.
+//=====================================================
+export class Board {
+    // Constructor: recibe la configuración del tablero y el estado global del juego
+    constructor({ columnas = 10, filas = 20, ladoCelda = 30, margen = 10, gameState }) {
+        this.columnas = columnas; // Cantidad de columnas en el tablero (por defecto 10)
+        this.filas = filas; // Cantidad de filas en el tablero (por defecto 20)
+        this.ladoCelda = ladoCelda; // Tamaño de cada celda (cuadrado) en píxeles
+        this.ancho = columnas * ladoCelda; // Ancho total del tablero en píxeles
+        this.alto = filas * ladoCelda; // Alto total del tablero en píxeles
 
-    //==========================================================================================
-    //Método dibujar() 
-    //==========================================================================================
-    dibujar() {  //Este método dibuja cada celda del tablero.
+        // Posición donde se dibuja el tablero (offset desde la esquina superior izquierda)
+        this.posicion = createVector(margen, margen);
+
+        // Matriz bidimensional que representa el estado de cada celda (null = vacía)
+        this.celdas = Array.from({ length: filas }, () => Array(columnas).fill(null));
+
+        this.gameState = gameState; // Estado del juego (puntaje, líneas hechas, animaciones)
+    }
+
+    // Método para dibujar el tablero
+    dibujar() {
         for (let fila = 0; fila < this.filas; fila++) {
             for (let col = 0; col < this.columnas; col++) {
-                const celda = this.celdas[fila][col];
-                const x = this.posicion.x + col * this.ladoCelda;
-                const y = this.posicion.y + fila * this.ladoCelda;
-                stroke(50);
-                fill(celda ? celda : 20);  //Si la celda tiene color, la pinta con ese color. Si no, usa un gris oscuro (20).
-                rect(x, y, this.ladoCelda, this.ladoCelda);  //Dibuja un rectángulo en la posición correspondiente con rect().
+                const celda = this.celdas[fila][col]; // Obtiene el contenido de la celda
+                const x = this.posicion.x + col * this.ladoCelda; // Coordenada X en píxeles
+                const y = this.posicion.y + fila * this.ladoCelda; // Coordenada Y en píxeles
+
+                stroke(50); // Borde gris oscuro
+                fill(celda ? celda : 20); // Si hay color, lo pinta; si no, usa gris oscuro
+                rect(x, y, this.ladoCelda, this.ladoCelda); // Dibuja la celda
             }
         }
     }
 
-    //==========================================================================================
-    //Método fijarTetrimino(tetrimino)
-    //==========================================================================================
-    fijarTetrimino(tetrimino) {   //Este método “pega” el tetrimino en el tablero cuando toca el fondo o choca.
+    // Método para fijar (pegar) una pieza en el tablero una vez que colisiona
+    fijarTetrimino(tetrimino) {
         for (let bloque of tetrimino.formaActual()) {
-            const x = tetrimino.pos.x + bloque[0];  //Para cada bloque, calcula su posición dentro del tablero y asigna su color.
-            const y = tetrimino.pos.y + bloque[1];
+            const x = tetrimino.pos.x + bloque[0]; // Posición X del bloque en el tablero
+            const y = tetrimino.pos.y + bloque[1]; // Posición Y del bloque en el tablero
+
+            // Solo si está dentro del área visible del tablero
             if (y >= 0 && y < this.filas && x >= 0 && x < this.columnas) {
-                this.celdas[y][x] = tetrimino.color;
+                this.celdas[y][x] = tetrimino.color; // Asigna el color del tetrimino a la celda
             }
         }
-        this.eliminarFilasCompletas();  //Aquí llama a eliminarFilasCompletas().
+        this.eliminarFilasCompletas(); // Luego intenta eliminar filas completas
     }
 
-    //==========================================================================================
-    //Método eliminarFilasCompletas()
-    //==========================================================================================
+    // Elimina las filas completas del tablero y otorga puntaje
     eliminarFilasCompletas() {
-        let nuevasFilas = [];
-        let filasEliminadas = 0;
+        let nuevasFilas = []; // Acumula las nuevas filas después de eliminar
+        let filasEliminadas = 0; // Contador de filas eliminadas
 
-        for (let fila of this.celdas) {  //Busca líneas completas. Si una línea está llena (.every(...)), se elimina y se agrega una nueva fila vacía al principio.
-            if (fila.every(celda => celda !== null)) {
-                nuevasFilas.unshift(Array(this.columnas).fill(null));
-                filasEliminadas++;
+        for (let fila of this.celdas) {
+            if (fila.every(celda => celda !== null)) { // Si la fila está completamente llena...
+                nuevasFilas.unshift(Array(this.columnas).fill(null)); // Agrega una nueva fila vacía arriba
+                filasEliminadas++; // Suma una línea eliminada
             } else {
-                nuevasFilas.push(fila);
+                nuevasFilas.push(fila); // Conserva la fila si no estaba llena
             }
         }
 
-        this.celdas = nuevasFilas;  //Se lleva la cuenta de cuántas se eliminaron y actualiza lineasHechas.
-        this.gameState.lineasHechas += filasEliminadas;
+        this.celdas = nuevasFilas; // Actualiza el tablero con las filas resultantes
+        this.gameState.lineasHechas += filasEliminadas; // Suma al contador global de líneas
 
-
-        //==========================================================================================
-        // Sistema de puntuación por líneas
-        //==========================================================================================
+        // Asigna puntaje según cantidad de líneas eliminadas simultáneamente
         let puntosGanados = 0;
         switch (filasEliminadas) {
             case 1:
-                puntosGanados = int(random(5500, 8500));  //Calcula los puntos (random) ganados según la cantidad de líneas eliminadas.
+                puntosGanados = int(random(5500, 8500));
                 break;
             case 2:
                 puntosGanados = int(random(15500, 20000));
@@ -82,39 +88,37 @@ export class Board {  //Exportamos la clase para poder importarla en otros archi
                 break;
         }
 
+        // Si se ganaron puntos, los suma y agrega animación flotante de puntaje
         if (puntosGanados > 0) {
-            this.gameState.puntaje += puntosGanados;    //Si se ganaron puntos, los suma al puntaje 
-            this.gameState.animacionesFlotantes.push({  //y agrega una animación flotante (que se dibuja luego en main.js).
+            this.gameState.puntaje += puntosGanados;
+            this.gameState.animacionesFlotantes.push({
                 puntos: puntosGanados,
                 x: this.posicion.x + this.ancho / 2,
                 y: this.posicion.y + this.alto / 2,
-                inicio: millis()
+                inicio: millis() // Momento en que inicia la animación (para el fade-out)
             });
         }
     }
 
-    //==========================================================================================
-    // Método colisiona(tetrimino)
-    //==========================================================================================
+    // Verifica si un tetrimino colisiona con el borde o con otras piezas
     colisiona(tetrimino) {
         for (let bloque of tetrimino.formaActual()) {
-            const x = tetrimino.pos.x + bloque[0];
-            const y = tetrimino.pos.y + bloque[1];
-            if (                                    //Verifica si un tetrimino colisiona con los bordes o con otras piezas del tablero.
-                x < 0 ||
-                x >= this.columnas ||
-                y >= this.filas ||
-                (y >= 0 && this.celdas[y][x])
+            const x = tetrimino.pos.x + bloque[0]; // Posición X absoluta
+            const y = tetrimino.pos.y + bloque[1]; // Posición Y absoluta
+
+            if (
+                x < 0 || // Fuera del tablero a la izquierda
+                x >= this.columnas || // Fuera del tablero a la derecha
+                y >= this.filas || // Fuera del tablero por debajo
+                (y >= 0 && this.celdas[y][x]) // Celda ocupada dentro del tablero
             ) {
-                return true;
+                return true; // Hay colisión
             }
         }
-        return false;
+        return false; // Si ningún bloque colisiona, devuelve false
     }
 
-    //==========================================================================================
-    // Método reiniciar()
-    //==========================================================================================
+    // Reinicia el tablero a su estado vacío original
     reiniciar() {
         this.celdas = Array.from({ length: this.filas }, () => Array(this.columnas).fill(null));
     }
