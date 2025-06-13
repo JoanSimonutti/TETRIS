@@ -1,5 +1,5 @@
 // src/Main.js
-import { crearMapeoBaseTetriminos } from './tetriminoUtils.js';
+import { crearMapeoBaseTetriminos } from './utils/tetriminoUtils.js';
 import { Board } from './board.js';
 import { Piece } from './piece.js';
 
