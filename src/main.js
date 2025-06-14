@@ -1,17 +1,17 @@
-// Importamos las funciones y clases necesarias desde sus respectivos módulos
+//Importamos las funciones y clases necesarias desde sus respectivos módulos
 import { crearMapeoBaseTetriminos } from './utils/tetriminoUtils.js';
 import { Board } from './board.js';
 import { Piece } from './piece.js';
 
-// ==========================
-// ESTADO GLOBAL DEL JUEGO
+//==========================
+//ESTADO GLOBAL DEL JUEGO
 //Qué aprendés con esto:
 //Cómo se inicializa el juego.
 //Cómo se dibuja y actualiza todo en pantalla.
 //Cómo se manejan las teclas (incluyendo velocidad y acciones).
 //Cómo se reinicia el juego.
 //Cómo se calculan las animaciones visuales del puntaje.
-// ==========================
+//==========================
 
 const gameState = {
     puntaje: 0, // Puntaje actual del jugador
@@ -23,7 +23,7 @@ const gameState = {
     tiempoMensajeReinicio: 0, // Marca cuándo se reinició el juego (para mostrar mensaje)
 };
 
-const DURACION_MENSAJE_REINICIO = 2000; // Duración en ms del mensaje de "New Game"
+const DURACION_MENSAJE_REINICIO = 2000; // Duración en ms (2000 milisegundos = 2 segundos) del mensaje de "New Game"
 const MARGEN_TABLERO = 10; // Espacio de margen alrededor del tablero
 
 let board; // Instancia del tablero
@@ -36,9 +36,9 @@ let regulador_velocidad_teclas = 0;
 let regulador_de_caida = 0;
 let límite_regulador_velocidad_teclas = 100;
 
-// ==========================
+// ========================================
 // P5 SETUP (se ejecuta una vez al inicio)
-// ==========================
+// ========================================
 function setup() {
     // Asignación de colores a cada tipo de tetrimino
     coloresTetriminos = {
