@@ -17,10 +17,15 @@ const gameState = {
     puntaje: 0, // Puntaje actual del jugador
     puntajeAnimado: 0, // Puntaje interpolado (para una animación visual suave)
     lineasHechas: 0, // Cantidad de líneas completadas
+    nivel: 1, // Nivel inicial
+    velocidadCaida: 500, // Tiempo en ms entre caídas
     animacionesFlotantes: [], // Lista de puntos flotantes que se animan al ganar puntos
     juegoPausado: false, // Estado de pausa
     juegoTerminado: false, // (no usado todavía, reservado para expansión)
     tiempoMensajeReinicio: 0, // Marca cuándo se reinició el juego (para mostrar mensaje)
+    mensajeNivel: null,  // Texto temporal para mostrar el mensaje de nivel
+    tiempoMensajeNivel: 0,  // Cuándo se activó el mensaje
+    DURACION_MENSAJE_NIVEL: 1000,  // Duración del mensaje en milisegundos
 };
 
 const DURACION_MENSAJE_REINICIO = 2000; // Duración en ms (2000 milisegundos = 2 segundos) del mensaje de "New Game"
@@ -63,14 +68,6 @@ function setup() {
         board.ancho + 2 * MARGEN_TABLERO,
         board.alto + 2 * MARGEN_TABLERO + 2 * board.ladoCelda
     );
-
-    // Intervalo para mover la pieza hacia abajo automáticamente cada 500ms
-    setInterval(() => {
-        if (gameState.juegoPausado) return; // Si está pausado, no hace nada
-        if (millis() - regulador_de_caida < 300) return; // Espera entre caídas
-        regulador_de_caida = millis(); // Reinicia contador
-        piece.moverAbajo(); // Mueve pieza hacia abajo
-    }, 500);
 }
 
 // ==========================
@@ -104,30 +101,71 @@ function draw() {
     if (millis() - gameState.tiempoMensajeReinicio < DURACION_MENSAJE_REINICIO) {
         mostrarMensaje('New Game');
     }
+
+    // Mostrar mensaje de subida de nivel si está activo
+    if (
+        gameState.mensajeNivel &&
+        millis() - gameState.tiempoMensajeNivel < gameState.DURACION_MENSAJE_NIVEL
+    ) {
+        mostrarMensaje(gameState.mensajeNivel);
+    } else {
+        gameState.mensajeNivel = null; // Limpiar mensaje pasado el tiempo
+    }
+
+
+    // =========================================
+    // CAÍDA AUTOMÁTICA DE LA PIEZA SEGÚN NIVEL
+    // =========================================
+
+    /*  Este bloque reemplaza el setInterval original.
+        Acá decidimos si ya pasó suficiente tiempo desde la última caída
+        usando la variable `gameState.velocidadCaida`, que cambia al subir de nivel.
+    */
+    if (!gameState.juegoPausado) { //Solo cae automáticamente si el juego no está en pausa.
+        // ¿Pasó el tiempo suficiente desde la última vez que cayó?
+        const tiempoActual = millis(); // Tiempo actual en milisegundos
+
+        if (tiempoActual - regulador_de_caida >= gameState.velocidadCaida) {  //Si pasó más tiempo del que indica la velocidad actual de caída, es hora de bajar la pieza. Ejemplo: si estamos en nivel 1, velocidadCaida = 500; si en nivel 2, será 375ms; etc.
+            piece.moverAbajo(); // Baja la pieza una posición
+            regulador_de_caida = tiempoActual; // Actualizamos el momento de la última caída
+        }
+    }
+
 }
 
 // ==========================
 // Dibuja el puntaje y líneas en pantalla
 // ==========================
 function dibujarPuntaje() {
-    push();
-    textSize(30);
-    drawingContext.shadowColor = 'rgba(0,0,0,0.5)';
+    push(); // Guarda el estado actual del dibujo (colores, estilos, etc.)
+
+    textSize(32); // Tamaño de fuente
+    drawingContext.shadowColor = 'rgba(0,0,0,0.5)'; // Sombra suave
     drawingContext.shadowBlur = 4;
     drawingContext.shadowOffsetX = 2;
     drawingContext.shadowOffsetY = 2;
 
-    strokeWeight(3);
-    stroke(0);
-    fill(255);
+    strokeWeight(3); // Grosor del contorno de letra
+    stroke(0);       // Color de contorno negro
+    fill(255);       // Color de relleno blanco
 
-    const x = board.posicion.x;
-    const y = board.posicion.y + board.alto + board.ladoCelda;
+    // Posiciones base de dibujo
+    const x = board.posicion.x; // Margen izquierdo del tablero
+    const y = board.posicion.y + board.alto + board.ladoCelda; // Justo debajo del tablero
 
-    text(`Lines ${gameState.lineasHechas}`, x, y);
-    text(`Score ${gameState.puntajeAnimado}`, x, y + 32);
-    pop();
+    // 🆕 Primero dibujamos el Score en la primera línea
+    text(`Score ${gameState.puntajeAnimado}`, x, y); // Primera línea
+
+    // 🆕 En la segunda línea, colocamos líneas y nivel
+    text(`Lines ${gameState.lineasHechas}`, x, y + 32); // Línea de abajo
+
+    const distanciaEntreTextos = 170; // Separación entre "Lines" y "Level"
+    text(`Level ${gameState.nivel}`, x + distanciaEntreTextos, y + 32); // Línea de abajo, más a la derecha
+
+    pop(); // Restaura el estilo gráfico anterior
 }
+
+
 
 // ==========================
 // Dibuja los puntajes flotantes animados
@@ -237,6 +275,8 @@ function reiniciarJuego() {
     gameState.puntaje = 0;
     gameState.puntajeAnimado = 0;
     gameState.lineasHechas = 0;
+    gameState.nivel = 1; // Reinicia nivel
+    gameState.velocidadCaida = 500; // Reinicia velocidad
     gameState.juegoPausado = false;
     gameState.juegoTerminado = false;
 }

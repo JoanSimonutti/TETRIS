@@ -71,6 +71,25 @@ export class Board {
         this.celdas = nuevasFilas; // Actualiza el tablero con las filas resultantes
         this.gameState.lineasHechas += filasEliminadas; // Suma al contador global de líneas
 
+        // Después de actualizar gameState.lineasHechas
+        const lineasPrevias = Math.floor((this.gameState.lineasHechas - filasEliminadas) / 6);
+        const lineasActuales = Math.floor(this.gameState.lineasHechas / 6);
+        const nivelesSubidos = lineasActuales - lineasPrevias;
+
+        if (nivelesSubidos > 0) {
+            this.gameState.nivel += nivelesSubidos;
+
+            // Reducimos la velocidad un 25% por nivel subido
+            this.gameState.velocidadCaida *= Math.pow(0.75, nivelesSubidos);
+
+            // Aseguramos un mínimo para que no se vuelva imposible
+            this.gameState.velocidadCaida = max(this.gameState.velocidadCaida, 50);
+
+            // Mostrar mensaje de nivel
+            this.gameState.mensajeNivel = 'LEVEL UP!';
+            this.gameState.tiempoMensajeNivel = millis(); // Tiempo actual
+        }
+
         // Asigna puntaje según cantidad de líneas eliminadas simultáneamente
         let puntosGanados = 0;
         switch (filasEliminadas) {
