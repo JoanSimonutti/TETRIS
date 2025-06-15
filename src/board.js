@@ -42,17 +42,31 @@ export class Board {
 
     // Método para fijar (pegar) una pieza en el tablero una vez que colisiona
     fijarTetrimino(tetrimino) {
+        let tocaArriba = false; // Para detectar si se fijó en la fila 0
+
         for (let bloque of tetrimino.formaActual()) {
             const x = tetrimino.pos.x + bloque[0]; // Posición X del bloque en el tablero
             const y = tetrimino.pos.y + bloque[1]; // Posición Y del bloque en el tablero
 
             // Solo si está dentro del área visible del tablero
             if (y >= 0 && y < this.filas && x >= 0 && x < this.columnas) {
-                this.celdas[y][x] = tetrimino.color; // Asigna el color del tetrimino a la celda
+                this.celdas[y][x] = tetrimino.color; // Fijar la pieza
+
+                if (y === 0) {
+                    tocaArriba = true; // Si tocó la fila de arriba, marcamos
+                }
             }
         }
+
+        // Si algún bloque se fijó en la fila 0 → GAME OVER
+        if (tocaArriba) {
+            this.gameState.juegoTerminado = true;
+            return; // No seguimos procesando líneas ni nada
+        }
+
         this.eliminarFilasCompletas(); // Luego intenta eliminar filas completas
     }
+
 
     // Elimina las filas completas del tablero y otorga puntaje
     eliminarFilasCompletas() {

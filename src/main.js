@@ -74,6 +74,29 @@ function setup() {
 // P5 DRAW (se ejecuta 60 veces por segundo)
 // ==========================
 function draw() {
+
+    if (gameState.juegoTerminado) {
+        clear(); // 🔧 Limpia el canvas para evitar que se dibuje encima cada frame
+        board.dibujar(); // Dibuja el tablero
+        piece.dibujar(); // Dibuja la última pieza detenida
+        dibujarPuntaje(); // Dibuja score, líneas, nivel
+        dibujarAnimacionesFlotantes(); // Si quedan animaciones flotantes
+
+        mostrarMensaje('Game Over'); // Mensaje principal
+
+        // Texto adicional debajo
+        push();
+        textAlign(CENTER, CENTER);
+        textSize(30);
+        fill(255);
+        stroke(0);
+        strokeWeight(3);
+        text('Try again? Press N', width / 2, height / 2 + 60);
+        pop();
+
+        return; // No seguimos dibujando ni procesando lógica
+    }
+
     clear(); // Limpia el canvas
 
     // Animación suave del puntaje (interpolación hacia el valor real)
