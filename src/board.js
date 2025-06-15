@@ -111,11 +111,12 @@ export class Board {
         if (puntosGanados > 0) {
             this.gameState.puntaje += puntosGanados;
             this.gameState.animacionesFlotantes.push({
-                puntos: puntosGanados,
-                x: this.posicion.x + this.ancho / 2,
-                y: this.posicion.y + this.alto / 2,
-                inicio: millis() // Momento en que inicia la animación (para el fade-out)
+                puntos: puntosGanados, // Cantidad de puntos a mostrar
+                x: this.posicion.x + this.ancho / 2, // X centrado en el tablero
+                y: this.posicion.y + this.alto / 2 - 60, // Subimos 100 píxeles desde el centro del tablero
+                inicio: millis() // Tiempo de inicio de la animación
             });
+
         }
     }
 
