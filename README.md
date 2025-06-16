@@ -2,6 +2,8 @@
 
 <img src="assets/tetris-01.png" alt="App-Pic" width="100%">
 
+## Sobre el proyecto
+
 - Versión del clásico juego desarrollada en **JavaScript**, realizada con fines de aprendizaje, práctica y diversión.
 
 - Se utiliza **[p5.js](https://p5js.org/es/)** para el renderizado gráfico y la gestión del canvas, permitiendo dibujar las piezas, detectar colisiones y responder a las acciones del jugador en tiempo real.
