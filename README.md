@@ -24,7 +24,7 @@
 
 ## [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
 
-📌 **Este proyecto está activo y en constante evolución. Si tienes ideas, sugerencias o quieres contribuir, tus aportes serán bienvenidos!**
+📌 **Este proyecto está activo y en constante evolución.** Si tienes ideas, sugerencias o quieres contribuir, tus aportes serán bienvenidos!
 
 ---
 
