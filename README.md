@@ -1,12 +1,10 @@
-# TETRIS
+# TETRIS - JavaScript + p5.js
 
 <img src="assets/tetris-01.png" alt="App-Pic" width="100%">
 
-- Versión del clásico juego desarrollada en **JavaScript**.
+- Versión del clásico juego desarrollada en **JavaScript**, realizada con fines de aprendizaje, práctica y diversión.
 
-- Para la parte gráfica e interactiva se utiliza **[p5.js](https://p5js.org/es/)**, aprovechando sus herramientas para dibujar las piezas, manejar el canvas y responder a las acciones del jugador en tiempo real.
-
-- **Este es un proyecto en constante desarrollo.<br>Si tienes ideas, sugerencias o quieres contribuir, tus aportes serán más que bienvenidos!**
+- Se utiliza **[p5.js](https://p5js.org/es/)** para el renderizado gráfico y la gestión del canvas, permitiendo dibujar las piezas, detectar colisiones y responder a las acciones del jugador en tiempo real.
 
 ### Controles por teclado:
 
@@ -25,6 +23,10 @@
 - **N**: Reiniciar el juego
 
 ## [👉 Hacé clic acá para jugar!](https://tetris-javascript-flame.vercel.app/)
+
+📌 **Este proyecto está activo y en constante evolución. Si tienes ideas, sugerencias o quieres contribuir, tus aportes serán bienvenidos!**
+
+---
 
 <div align="end">
 
