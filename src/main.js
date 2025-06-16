@@ -200,33 +200,41 @@ function draw() {
 // Dibuja el puntaje y líneas en pantalla
 // ==========================
 function dibujarPuntaje() {
-    push(); // Guarda el estado actual del dibujo (colores, estilos, etc.)
+    push();
 
-    textSize(32); // Tamaño de fuente
-    drawingContext.shadowColor = 'rgba(0,0,0,0.5)'; // Sombra suave
+    textSize(32);
+    drawingContext.shadowColor = 'rgba(0,0,0,0.5)';
     drawingContext.shadowBlur = 4;
     drawingContext.shadowOffsetX = 2;
     drawingContext.shadowOffsetY = 2;
 
-    strokeWeight(3); // Grosor del contorno de letra
-    stroke(0);       // Color de contorno negro
-    fill(255);       // Color de relleno blanco
+    strokeWeight(3);
+    stroke(0);
+    fill(255);
+    textAlign(CENTER);
 
-    // Posiciones base de dibujo
-    const x = board.posicion.x; // Margen izquierdo del tablero
-    const y = board.posicion.y + board.alto + board.ladoCelda; // Justo debajo del tablero
+    // Calculamos el centro horizontal del tablero
+    const centroX = board.posicion.x + board.ancho / 2;
 
-    // 🆕 Primero dibujamos el Score en la primera línea
-    text(`Score ${gameState.puntajeAnimado}`, x, y); // Primera línea
+    // Coordinadas verticales ajustadas
+    const yBase = board.posicion.y + board.alto + board.ladoCelda + 1; // Más separado del tablero
 
-    // 🆕 En la segunda línea, colocamos líneas y nivel
-    text(`Lines ${gameState.lineasHechas}`, x, y + 32); // Línea de abajo
+    // Score en una línea
+    text(`Score ${gameState.puntajeAnimado}`, centroX, yBase);
 
-    const distanciaEntreTextos = 170; // Separación entre "Lines" y "Level"
-    text(`Level ${gameState.nivel}`, x + distanciaEntreTextos, y + 32); // Línea de abajo, más a la derecha
+    // Más espacio vertical para el siguiente bloque
+    const yInferior = yBase + 32;
 
-    pop(); // Restaura el estilo gráfico anterior
+    // Dibujamos Lines y Level, uno a cada lado del centro
+    textAlign(RIGHT);
+    text(`Lines ${gameState.lineasHechas}`, centroX - 20, yInferior);
+
+    textAlign(LEFT);
+    text(`Level ${gameState.nivel}`, centroX + 20, yInferior);
+
+    pop();
 }
+
 
 
 
