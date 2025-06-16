@@ -82,7 +82,7 @@ function draw() {
         dibujarPuntaje(); // Puntaje, líneas, nivel
         dibujarAnimacionesFlotantes(); // Animaciones de puntaje
 
-        // 🟥 Fondo rojo unificado con transparencia, centrado sobre el tablero
+        // Fondo unificado con transparencia, centrado sobre el tablero
         push(); // Guardamos el estilo de dibujo
 
         const centroX = width / 2;           // Centro horizontal del canvas
@@ -95,31 +95,22 @@ function draw() {
 
         // Fondo con transparencia
         rectMode(CENTER);
-        //fill(200, 30, 30, 180);   // Rojo oscuro con transparencia
-        fill(30, 30, 30, 180);    // Negro grisáceo con transparencia
-        //fill(30, 30, 200, 180);   // Azul oscuro con transparencia
-        //fill(30, 200, 30, 180);   // Verde fuerte con transparencia
-        //fill(255, 165, 0, 180);   // Naranja (como fuego) con transparencia
-        //fill(200, 0, 200, 180);   // Violeta con transparencia
-        //fill(255, 255, 0, 180);   // Amarillo intenso con transparencia
-        //fill(255, 255, 255, 180); // Blanco suave (transparente)
-        //fill(0, 255, 255, 180);   // Cian brillante con transparencia
-        //fill(255, 105, 180, 180); // Rosa fuerte (Hot Pink) con transparencia
+        fill(10, 10, 10, 180);  // Negro casi puro con transparencia
 
         noStroke();
         rect(xRect, yRect, anchoRect, altoRect); // Fondo único
 
-        // ✏️ Texto "Game Over"
+        // Texto "Game Over"
         textAlign(CENTER, CENTER);
         textSize(48);
         fill(255);        // Blanco
         stroke(0);        // Contorno negro
         strokeWeight(3);
-        text('GAME OVER', centroX, centroY - 16); // Primer texto, un poco más arriba
+        text('GAME OVER', centroX, centroY - 15); // Primer texto, un poco más arriba
 
-        // ✏️ Texto "Try again? Press N"
+        // Texto "Try again? Press N"
         textSize(26);
-        text('TRY AGAIN PRESS N', centroX, centroY + 24); // Segundo texto, más abajo
+        text('TRY AGAIN PRESS N', centroX, centroY + 25); // Segundo texto, más abajo
 
         pop(); // Restauramos estilos gráficos anteriores
 
