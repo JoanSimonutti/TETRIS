@@ -202,7 +202,7 @@ function draw() {
 function dibujarPuntaje() {
     push();
 
-    textSize(32);
+    textSize(35);
     drawingContext.shadowColor = 'rgba(0,0,0,0.5)';
     drawingContext.shadowBlur = 4;
     drawingContext.shadowOffsetX = 2;
@@ -217,13 +217,13 @@ function dibujarPuntaje() {
     const centroX = board.posicion.x + board.ancho / 2;
 
     // Coordinadas verticales ajustadas
-    const yBase = board.posicion.y + board.alto + board.ladoCelda + 1; // Más separado del tablero
+    const yBase = board.posicion.y + board.alto + board.ladoCelda + 3; // Más separado del tablero
 
     // Score en una línea
     text(`Score ${gameState.puntajeAnimado}`, centroX, yBase);
 
     // Más espacio vertical para el siguiente bloque
-    const yInferior = yBase + 32;
+    const yInferior = yBase + 34;
 
     // Dibujamos Lines y Level, uno a cada lado del centro
     textAlign(RIGHT);

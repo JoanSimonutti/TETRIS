@@ -15,6 +15,18 @@
   </head>
 
   <body>
+    <header class="navbar">
+      <p>
+        Dev by Joan Simonutti |
+        <a href="https://www.linkedin.com/in/joansimonutti" target="_blank"
+          >LinkedIn</a
+        >
+        |
+        <a href="https://github.com/joansimonutti" target="_blank">GitHub</a>
+        | <span id="fecha-navbar"></span>
+      </p>
+    </header>
+
     <!-- Carga del código JavaScript en módulos ES6 -->
     <!-- El orden importa si hay dependencias: main.js se debe cargar último -->
 
@@ -26,6 +38,19 @@
 
     <!-- Main: el archivo que inicializa y ejecuta todo el juego -->
     <script type="module" src="src/main.js"></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const fecha = new Date();
+        const opciones = { day: "2-digit", month: "long", year: "numeric" };
+        const formato = fecha.toLocaleDateString("es-ES", opciones);
+
+        const f1 = document.getElementById("fecha-navbar");
+        const f2 = document.getElementById("fecha-footer");
+
+        if (f1) f1.textContent = formato;
+        if (f2) f2.textContent = formato;
+      });
+    </script>
   </body>
 </html>
 
