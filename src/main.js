@@ -26,6 +26,9 @@ const gameState = {
     mensajeNivel: null,  // Texto temporal para mostrar el mensaje de nivel
     tiempoMensajeNivel: 0,  // Cuándo se activó el mensaje
     DURACION_MENSAJE_NIVEL: 1000,  // Duración del mensaje en milisegundos
+    sacudidaActiva: false,
+    inicioSacudida: 0,
+    duracionSacudida: 300, // Podés probar con distintos tiempos de duración (100ms a 300ms)
 };
 
 const DURACION_MENSAJE_REINICIO = 2000; // Duración en ms (2000 milisegundos = 2 segundos) del mensaje de "New Game"
@@ -119,6 +122,22 @@ function draw() {
 
 
     clear(); // Limpia el canvas
+
+    // Aplicar sacudida si está activa
+    if (gameState.sacudidaActiva) {
+        const tiempoActual = millis();
+        const tiempoTranscurrido = tiempoActual - gameState.inicioSacudida;
+
+        if (tiempoTranscurrido < gameState.duracionSacudida) {
+            const intensidad = 10; // Intensidad de la sacudida (pixeles) Podés probar distintas intensidades (intensidad = 3 a 10)
+            const dx = random(-intensidad, intensidad);
+            const dy = random(-intensidad, intensidad);
+            translate(dx, dy); // Desplazamos temporalmente el canvas
+        } else {
+            gameState.sacudidaActiva = false; // Desactivamos la sacudida
+        }
+    }
+
 
     // Animación suave del puntaje (interpolación hacia el valor real)
     gameState.puntajeAnimado += (gameState.puntaje - gameState.puntajeAnimado) * 0.02;
@@ -325,9 +344,16 @@ function reiniciarJuego() {
     gameState.juegoTerminado = false;
 }
 
+function activarSacudida() {
+    gameState.sacudidaActiva = true;
+    gameState.inicioSacudida = millis();
+}
+
+
 // ==========================
 // Exporta funciones globales requeridas por p5.js
 // ==========================
 window.setup = setup;
 window.draw = draw;
 window.keyPressed = keyPressed;
+window.activarSacudida = activarSacudida;

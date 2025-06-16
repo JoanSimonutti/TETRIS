@@ -131,6 +131,11 @@ export class Board {
                 inicio: millis() // Tiempo de inicio de la animación
             });
 
+            // Activamos la sacudida de pantalla
+            if (typeof activarSacudida === 'function') {
+                activarSacudida();
+            }
+
         }
     }
 
