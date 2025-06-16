@@ -21,7 +21,7 @@ const gameState = {
     velocidadCaida: 500, // Tiempo en ms entre caídas
     animacionesFlotantes: [], // Lista de puntos flotantes que se animan al ganar puntos
     juegoPausado: false, // Estado de pausa
-    juegoTerminado: false, // (no usado todavía, reservado para expansión)
+    juegoTerminado: false, // "Game Over"
     tiempoMensajeReinicio: 0, // Marca cuándo se reinició el juego (para mostrar mensaje)
     mensajeNivel: null,  // Texto temporal para mostrar el mensaje de nivel
     tiempoMensajeNivel: 0,  // Cuándo se activó el mensaje
@@ -76,26 +76,56 @@ function setup() {
 function draw() {
 
     if (gameState.juegoTerminado) {
-        clear(); // 🔧 Limpia el canvas para evitar que se dibuje encima cada frame
+        clear(); // Limpia el canvas
         board.dibujar(); // Dibuja el tablero
-        piece.dibujar(); // Dibuja la última pieza detenida
-        dibujarPuntaje(); // Dibuja score, líneas, nivel
-        dibujarAnimacionesFlotantes(); // Si quedan animaciones flotantes
+        piece.dibujar(); // Última pieza fija
+        dibujarPuntaje(); // Puntaje, líneas, nivel
+        dibujarAnimacionesFlotantes(); // Animaciones de puntaje
 
-        mostrarMensaje('Game Over'); // Mensaje principal
+        // 🟥 Fondo rojo unificado con transparencia, centrado sobre el tablero
+        push(); // Guardamos el estilo de dibujo
 
-        // Texto adicional debajo
-        push();
+        const centroX = width / 2;           // Centro horizontal del canvas
+        const centroY = height / 2;          // Centro vertical del canvas
+
+        const anchoRect = board.ancho;       // Igual al ancho del tablero
+        const altoRect = 100;                // Alto suficiente para contener ambos textos
+        const xRect = board.posicion.x + anchoRect / 2; // Centro X del rectángulo
+        const yRect = centroY;               // Lo centramos verticalmente en el canvas
+
+        // Fondo con transparencia
+        rectMode(CENTER);
+        //fill(200, 30, 30, 180);   // Rojo oscuro con transparencia
+        fill(30, 30, 30, 180);    // Negro grisáceo con transparencia
+        //fill(30, 30, 200, 180);   // Azul oscuro con transparencia
+        //fill(30, 200, 30, 180);   // Verde fuerte con transparencia
+        //fill(255, 165, 0, 180);   // Naranja (como fuego) con transparencia
+        //fill(200, 0, 200, 180);   // Violeta con transparencia
+        //fill(255, 255, 0, 180);   // Amarillo intenso con transparencia
+        //fill(255, 255, 255, 180); // Blanco suave (transparente)
+        //fill(0, 255, 255, 180);   // Cian brillante con transparencia
+        //fill(255, 105, 180, 180); // Rosa fuerte (Hot Pink) con transparencia
+
+        noStroke();
+        rect(xRect, yRect, anchoRect, altoRect); // Fondo único
+
+        // ✏️ Texto "Game Over"
         textAlign(CENTER, CENTER);
-        textSize(30);
-        fill(255);
-        stroke(0);
+        textSize(48);
+        fill(255);        // Blanco
+        stroke(0);        // Contorno negro
         strokeWeight(3);
-        text('Try again? Press N', width / 2, height / 2 + 60);
-        pop();
+        text('GAME OVER', centroX, centroY - 16); // Primer texto, un poco más arriba
 
-        return; // No seguimos dibujando ni procesando lógica
+        // ✏️ Texto "Try again? Press N"
+        textSize(26);
+        text('TRY AGAIN PRESS N', centroX, centroY + 24); // Segundo texto, más abajo
+
+        pop(); // Restauramos estilos gráficos anteriores
+
+        return; // Cortamos el dibujo aquí
     }
+
 
     clear(); // Limpia el canvas
 

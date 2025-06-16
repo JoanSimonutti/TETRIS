@@ -93,11 +93,11 @@ export class Board {
         if (nivelesSubidos > 0) {
             this.gameState.nivel += nivelesSubidos;
 
-            // Reducimos la velocidad un 25% por nivel subido
-            this.gameState.velocidadCaida *= Math.pow(0.75, nivelesSubidos);
+            // Reducimos la velocidad un 10% por nivel subido
+            this.gameState.velocidadCaida *= Math.pow(0.93, nivelesSubidos); //Para reducir o aumentar la velocidad de caida modificar "0.93"
 
             // Aseguramos un mínimo para que no se vuelva imposible
-            this.gameState.velocidadCaida = max(this.gameState.velocidadCaida, 50);
+            this.gameState.velocidadCaida = max(this.gameState.velocidadCaida, 100); //Este es el minimo de velocidad de caida "100 ms" 
 
             // Mostrar mensaje de nivel
             this.gameState.mensajeNivel = 'LEVEL UP!';
