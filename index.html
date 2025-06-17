@@ -15,20 +15,42 @@
   </head>
 
   <body>
+    <!-- Navbar -->
     <header class="navbar">
       <p>
         <a href="https://github.com/joansimonutti/TETRIS" target="_blank"
           >TETRIS</a
         >
-        | Joan Simonutti |
+        |
+        <button id="open-controls-modal" class="modal-button">
+          Keyboard Controls
+        </button>
+        |
         <a href="https://github.com/joansimonutti" target="_blank">GitHub</a>
         |
         <a href="https://www.linkedin.com/in/joansimonutti" target="_blank"
           >LinkedIn</a
         >
-        | <span id="fecha-navbar"></span>
+        | Joan Simonutti
       </p>
     </header>
+
+    <!-- Modal -->
+    <div id="controls-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="modal-close" id="close-controls-modal">&times;</span>
+        <h2>Controls</h2>
+        <ul>
+          <li>⬆️ or <strong>W</strong>: Rotate piece</li>
+          <li>⬅️ or <strong>A</strong>: Move left</li>
+          <li>➡️ or <strong>D</strong>: Move right</li>
+          <li>⬇️ or <strong>S</strong>: Move down</li>
+          <li><strong>Spacebar</strong>: Hard drop</li>
+          <li><strong>P</strong>: Pause / Resume</li>
+          <li><strong>N</strong>: Restart game</li>
+        </ul>
+      </div>
+    </div>
 
     <!-- Carga del código JavaScript en módulos ES6 -->
     <!-- El orden importa si hay dependencias: main.js se debe cargar último -->
@@ -42,16 +64,24 @@
     <!-- Main: el archivo que inicializa y ejecuta todo el juego -->
     <script type="module" src="src/main.js"></script>
     <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const fecha = new Date();
-        const opciones = { day: "2-digit", month: "long", year: "numeric" };
-        const formato = fecha.toLocaleDateString("es-ES", opciones);
+      document.addEventListener("DOMContentLoaded", () => {
+        const openBtn = document.getElementById("open-controls-modal");
+        const closeBtn = document.getElementById("close-controls-modal");
+        const modal = document.getElementById("controls-modal");
 
-        const f1 = document.getElementById("fecha-navbar");
-        const f2 = document.getElementById("fecha-footer");
+        openBtn.addEventListener("click", () => {
+          modal.classList.remove("hidden");
+        });
 
-        if (f1) f1.textContent = formato;
-        if (f2) f2.textContent = formato;
+        closeBtn.addEventListener("click", () => {
+          modal.classList.add("hidden");
+        });
+
+        window.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.add("hidden");
+          }
+        });
       });
     </script>
   </body>
