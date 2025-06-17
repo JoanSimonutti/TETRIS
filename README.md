@@ -35,5 +35,3 @@
 Creado por [Joan Simonutti](https://www.linkedin.com/in/joansimonutti/) | 2025
 
 </div>
-
-<img src="assets/tetris-04.png" alt="App-Pic" width="100%">
