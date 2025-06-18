@@ -1,6 +1,6 @@
 # TETRIS
 
-<img src="assets/tetris-01.png" alt="App-Pic" width="100%">
+<img src="assets/tetris-06.png" alt="App-Pic" width="100%">
 
 ## Sobre el proyecto
 
