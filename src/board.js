@@ -35,7 +35,7 @@ export class Board {
 
                 stroke(50); // Borde gris oscuro
                 fill(celda ? celda : 20); // Si hay color, lo pinta; si no, usa gris oscuro
-                rect(x, y, this.ladoCelda, this.ladoCelda); // Dibuja la celda
+                rect(x, y, this.ladoCelda, this.ladoCelda); // Dibuja la celda 
             }
         }
     }
@@ -58,7 +58,7 @@ export class Board {
             }
         }
 
-        // Si algún bloque se fijó en la fila 0 → GAME OVER
+        // Si algún bloque se fijó en la fila 0 → GAME OVER :(
         if (tocaArriba) {
             this.gameState.juegoTerminado = true;
             return; // No seguimos procesando líneas ni nada
