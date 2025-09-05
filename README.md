@@ -24,7 +24,9 @@
 
 - **N**: Reiniciar el juego
 
-## Jugá online ahora! [👉 Hacé clic acá! 👈](https://tetris-javascript-flame.vercel.app/)
+### Jugá online ahora! [👉 Hacé clic acá! 👈](https://tetris-javascript-flame.vercel.app/)
+
+---
 
 <div align="end">
 
