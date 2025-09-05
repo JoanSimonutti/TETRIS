@@ -26,8 +26,6 @@
 
 ## Jugá online ahora! [👉 Hacé clic acá! 👈](https://tetris-javascript-flame.vercel.app/)
 
----
-
 <div align="end">
 
 Creado por [Joan Simonutti](https://www.linkedin.com/in/joansimonutti/) | 2025
