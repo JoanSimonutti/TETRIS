@@ -26,8 +26,6 @@
 
 ## Jugá online ahora! [👉 Hacé clic acá! 👈](https://tetris-javascript-flame.vercel.app/)
 
-📌 **Este proyecto está activo y en constante evolución.**<br>Si tienes ideas, sugerencias o quieres contribuir, tus aportes serán bienvenidos!
-
 ---
 
 <div align="end">
