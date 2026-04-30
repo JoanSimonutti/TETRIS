@@ -11,7 +11,9 @@
 ---
 
 <div align="center">
+  
 ### Jugá online ahora! [Hacé clic acá!](https://tetris-javascript-flame.vercel.app/)
+
 </div>
 
 ---
@@ -35,7 +37,9 @@
 ---
 
 <div align="center">
+  
 ### Jugá online ahora! [Hacé clic acá!](https://tetris-javascript-flame.vercel.app/)
+
 </div>
 
 ---
