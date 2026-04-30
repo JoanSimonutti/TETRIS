@@ -9,9 +9,11 @@
 - Se utiliza la biblioteca **[p5.js](https://p5js.org/es/)** para el renderizado gráfico y la gestión del canvas, permitiendo dibujar las piezas, detectar colisiones y responder a las acciones del jugador en tiempo real.
 
 ---
+
 <div align="center">
 ### Jugá online ahora! [Hacé clic acá!](https://tetris-javascript-flame.vercel.app/)
 </div>
+
 ---
 
 ### Controles por teclado:
@@ -31,9 +33,11 @@
 - **N**: Reiniciar el juego
 
 ---
+
 <div align="center">
 ### Jugá online ahora! [Hacé clic acá!](https://tetris-javascript-flame.vercel.app/)
 </div>
+
 ---
 
 <div align="end">
